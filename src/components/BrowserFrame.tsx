@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import '../styles/browser-frame.css';
 
 /**
@@ -100,6 +100,7 @@ BrowserFrame.Stage = function Stage({ children }: { children: ReactNode }) {
 export function useFrameHistory() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const navType = useNavigationType();
   const [menuOpen, setMenuOpen] = useState(false);
   const scrollRef = useRef<HTMLElement>(null);
   const [hist, setHist] = useState({ entries: [pathname], index: 0 });
@@ -111,10 +112,16 @@ export function useFrameHistory() {
     if (travelling.current) { travelling.current = false; return; }
     setHist((h) => {
       if (h.entries[h.index] === pathname) return h;
+      // A redirect replaces the current page rather than adding one, so Back doesn't bounce.
+      if (navType === 'REPLACE') {
+        const entries = [...h.entries];
+        entries[h.index] = pathname;
+        return { entries, index: h.index };
+      }
       const entries = [...h.entries.slice(0, h.index + 1), pathname];
       return { entries, index: entries.length - 1 };
     });
-  }, [pathname]);
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const go = useCallback((delta: -1 | 1) => {
     const index = hist.index + delta;

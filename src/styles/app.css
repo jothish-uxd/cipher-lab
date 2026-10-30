@@ -372,3 +372,81 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 
 /* Inside the frame, lab pages use the full width available. */
 .lab-main .page { max-width: none; }
+
+/* ---------- Forms (a11y-charts control style) ---------- */
+.field { display: grid; gap: 6px; min-width: 0; }
+.field__label { font-size: 12.5px; font-weight: 500; color: var(--ink-faint); }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 36px; padding: 6px 10px;
+  border: 1px solid var(--rule-strong); border-radius: 6px; background: var(--bg); color: var(--ink);
+  font-size: 14px; line-height: 1.4;
+}
+.field textarea { resize: vertical; min-height: 72px; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--ink-faint); }
+.field--wide { max-width: 720px; }
+.field--narrow { max-width: 120px; }
+.field-help { flex-basis: 100%; font-size: 13px; color: var(--ink-faint); max-width: 62ch; }
+.form { display: grid; gap: 20px; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px 20px; max-width: 960px; }
+.form-actions { display: flex; gap: 8px; }
+.inline-form { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; margin-top: 20px; }
+.inline-form .field { width: 200px; }
+.inline-form .field--narrow { width: 120px; }
+.checks { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.checks legend { margin-bottom: 10px; padding: 0; }
+.check { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.check input { width: 16px; height: 16px; accent-color: var(--ink); }
+.btn--sm { height: 30px; padding: 0 10px; font-size: 13px; }
+.link-button {
+  appearance: none; border: 0; background: none; padding: 0; cursor: pointer;
+  color: var(--ink-soft); font-size: 13px; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px;
+}
+.link-button:hover { color: var(--ink); text-decoration-color: currentColor; }
+.table .row-actions { text-align: right; width: 1%; white-space: nowrap; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ---------- Contract capture ---------- */
+.contract { display: grid; gap: 56px; max-width: 1080px; }
+.contract-status {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: center;
+  padding: 20px 24px; border: 1px solid var(--rule); border-radius: 12px; background: var(--bg-subtle);
+}
+.contract-status.is-locked { background: var(--bg); border-style: solid; border-color: var(--ink); }
+.contract-status__title { font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 4px; }
+.contract-status__text .muted { font-size: 14px; max-width: 62ch; }
+.contract-status__actions { display: flex; justify-content: flex-end; }
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; justify-content: flex-end; }
+.confirm__text { font-size: 14px; margin-right: 4px; }
+.blockers { grid-column: 1 / -1; padding-top: 14px; border-top: 1px dashed var(--rule-strong); }
+.blockers:focus-visible { outline-offset: 6px; }
+.blockers__title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.blockers ul { list-style: disc; padding-left: 20px; display: grid; gap: 2px; font-size: 14px; color: var(--ink-soft); }
+
+.contract-section__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+.section-lede { color: var(--ink-soft); font-size: 14px; max-width: 62ch; margin-bottom: 16px; }
+.contract-desc { max-width: 62ch; margin-bottom: 20px; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px 24px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.detail-grid dt { font-size: 12.5px; color: var(--ink-faint); }
+.detail-grid dd { font-size: 14px; font-weight: 500; margin-top: 2px; }
+.detail-grid__wide { grid-column: 1 / -1; }
+.empty-line { color: var(--ink-faint); font-size: 14px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.person { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); }
+
+.activity { display: grid; border-top: 1px solid var(--rule); }
+.activity li { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; color: var(--ink-soft); }
+.activity time { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
+.activity strong { color: var(--ink); font-weight: 500; }
+
+/* ---------- Pager (from a11y-charts) ---------- */
+.pager { margin-top: 72px; padding-top: 8px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pager-link { display: grid; gap: 2px; padding: 16px 0; text-decoration: none; font-weight: 500; }
+.pager-link span { font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.pager-link.is-next { grid-column: 2; text-align: right; }
+.pager-link:hover { text-decoration: underline; text-decoration-color: var(--rule-strong); }
+
+@media (max-width: 700px) {
+  .contract-status { grid-template-columns: 1fr; }
+  .contract-status__actions, .confirm { justify-content: flex-start; }
+  .activity li { grid-template-columns: 1fr; gap: 2px; }
+  .inline-form .field { width: 100%; }
+}

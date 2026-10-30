@@ -21,7 +21,9 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/data/customers.ts` — placeholder customers, solutions, models and teams.
 - `src/pages/OverviewPage.tsx` — what the product is and who it serves.
 - `src/pages/LabLayout.tsx` — the app: left nav lists customers, then drills into one customer’s solutions and models.
-- `src/pages/SolutionPage.tsx` — the stage shell each lifecycle screen will plug into.
+- `src/pages/SolutionPage.tsx` — the stage shell each lifecycle screen plugs into.
+- `src/pages/stages/ContractCapture.tsx` — stage 1: solution details, success criteria, data request, team, sign-off and activity.
+- `src/data/store.ts`, `src/data/contracts.ts` — edits made in the lab, saved in the browser (localStorage).
 
 ## Routes
 

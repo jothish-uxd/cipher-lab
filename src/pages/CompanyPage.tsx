@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { findCustomer } from '../data/customers';
+import { currentStage, useStoreVersion } from '../data/contracts';
 import { usePageTitle } from '../components/usePageTitle';
 import Breadcrumbs from '../components/Breadcrumbs';
 import StageProgress from '../components/StageProgress';
@@ -11,6 +12,7 @@ export default function CompanyPage() {
   const { customerId } = useParams();
   const c = findCustomer(customerId);
   const h = usePageTitle(c?.name ?? 'Customer not found');
+  useStoreVersion(); // re-render when a stage changes in the lab
   const [enabled, setEnabled] = useState<Record<string, boolean>>(
     () => Object.fromEntries((c?.solutions ?? []).map((s) => [s.id, s.enabled])),
   );
@@ -61,9 +63,9 @@ export default function CompanyPage() {
                     </th>
                     <td>{s.labels.join(' / ')}</td>
                     <td>{s.trainingSetId ? <code className="id">{s.trainingSetId}</code> : <span className="muted">None yet</span>}</td>
-                    <td><StageProgress stage={s.stage} /></td>
+                    <td><StageProgress stage={currentStage(c, s)} /></td>
                     <td>
-                      {s.stage === 'deployment' ? (
+                      {currentStage(c, s) === 'deployment' ? (
                         <Toggle
                           checked={enabled[s.id]}
                           onChange={(v) => setEnabled((e) => ({ ...e, [s.id]: v }))}
