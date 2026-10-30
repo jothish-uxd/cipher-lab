@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { findCustomer } from '../data/customers';
 import { currentStage, useStoreVersion } from '../data/contracts';
 import { currentTrainingSet } from '../data/fulfillment';
+import { hasDeployment, isLive, setLive } from '../data/deployment';
 import { usePageTitle } from '../components/usePageTitle';
 import Breadcrumbs from '../components/Breadcrumbs';
 import StageProgress from '../components/StageProgress';
@@ -14,9 +14,6 @@ export default function CompanyPage() {
   const c = findCustomer(customerId);
   const h = usePageTitle(c?.name ?? 'Customer not found');
   useStoreVersion(); // re-render when a stage changes in the lab
-  const [enabled, setEnabled] = useState<Record<string, boolean>>(
-    () => Object.fromEntries((c?.solutions ?? []).map((s) => [s.id, s.enabled])),
-  );
 
   if (!c) return <NotFoundInline headingRef={h} what="customer" />;
 
@@ -66,10 +63,10 @@ export default function CompanyPage() {
                     <td>{currentTrainingSet(c, s) ? <code className="id">{currentTrainingSet(c, s)}</code> : <span className="muted">None yet</span>}</td>
                     <td><StageProgress stage={currentStage(c, s)} /></td>
                     <td>
-                      {currentStage(c, s) === 'deployment' ? (
+                      {currentStage(c, s) === 'deployment' && hasDeployment(c, s) ? (
                         <Toggle
-                          checked={enabled[s.id]}
-                          onChange={(v) => setEnabled((e) => ({ ...e, [s.id]: v }))}
+                          checked={isLive(c, s)}
+                          onChange={(v) => setLive(c, s, v)}
                           label={`${s.name} in surveillance`}
                         />
                       ) : (

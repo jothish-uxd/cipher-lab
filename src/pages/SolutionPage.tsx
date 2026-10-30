@@ -12,6 +12,7 @@ import DataAnalysis from './stages/DataAnalysis';
 import FeatureEngineering from './stages/FeatureEngineering';
 import Training from './stages/Training';
 import ModelEvaluation from './stages/ModelEvaluation';
+import Deployment from './stages/Deployment';
 import { currentTrainingSet, useFulfillment } from '../data/fulfillment';
 
 type Status = 'Complete' | 'In progress' | 'Not started';
@@ -97,6 +98,8 @@ function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Soluti
         <Training customer={c} solution={s} />
       ) : viewing.id === 'evaluation' ? (
         <ModelEvaluation customer={c} solution={s} />
+      ) : viewing.id === 'deployment' ? (
+        <Deployment customer={c} solution={s} />
       ) : (
         <div className="solution-grid">
           <section className="panel stage-placeholder" aria-labelledby="stage-h">

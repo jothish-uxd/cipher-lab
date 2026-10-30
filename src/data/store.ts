@@ -57,3 +57,8 @@ export function useStoreVersion() {
 export function resetStore() {
   write({});
 }
+
+/** Write a value outside a component (for tables that change many rows). */
+export function put<T>(key: string, value: T) {
+  write({ ...state, [key]: value });
+}

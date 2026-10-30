@@ -28,8 +28,9 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/pages/stages/FeatureEngineering.tsx` — stage 4: tune, add or remove features, preview them on your own sentence, lock the set for training.
 - `src/pages/stages/Training.tsx` — stage 5: pick candidate models, train with live progress, check each result against the contract.
 - `src/pages/stages/ModelEvaluation.tsx` — stage 6: compare models against the contract, tune the alert threshold, inspect, try a message, choose one to deploy.
+- `src/pages/stages/Deployment.tsx` — stage 7: deploy versioned services to the vault, switch surveillance on, roll back, monitor precision and drift.
 - `src/components/charts/` — accessible charts ported from a11y-charts: monochrome patterns, generated summaries, one keyboard stop per chart, data tables.
-- `src/data/store.ts`, `src/data/contracts.ts`, `src/data/fulfillment.ts`, `src/data/analysis.ts`, `src/data/features.ts`, `src/data/training.ts`, `src/data/evaluation.ts` — edits made in the lab, saved in the browser (localStorage).
+- `src/data/store.ts`, `src/data/contracts.ts`, `src/data/fulfillment.ts`, `src/data/analysis.ts`, `src/data/features.ts`, `src/data/training.ts`, `src/data/evaluation.ts`, `src/data/deployment.ts` — edits made in the lab, saved in the browser (localStorage).
 
 ## Routes
 

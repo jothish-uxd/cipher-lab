@@ -654,3 +654,16 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 .why { display: grid; gap: 8px; font-size: 14px; color: var(--ink-soft); align-content: start; }
 .why strong { color: var(--ink); font-weight: 500; }
 @media (max-width: 700px) { .confidence li { grid-template-columns: 1fr 44px; } .confidence li .meter { grid-column: 1 / -1; } }
+
+/* ---------- Deployment ---------- */
+.form-grid--2 { grid-template-columns: minmax(220px, 1fr) minmax(280px, 2fr); }
+@media (max-width: 800px) { .form-grid--2 { grid-template-columns: 1fr; } }
+.cell-strong { display: block; color: var(--ink); font-weight: 500; }
+.cell-sub { display: block; font-size: 12.5px; color: var(--ink-faint); max-width: 40ch; }
+.stat-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 8px 0 20px; }
+.stat-row > div { padding: 16px; border: 1px solid var(--rule); border-radius: 12px; }
+.stat-row dt { font-size: 12.5px; color: var(--ink-faint); }
+.stat-row dd { margin-top: 6px; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+.stat-row dd .muted { font-size: 14px; font-weight: 400; letter-spacing: 0; }
+@media (max-width: 900px) { .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.contract-status__actions .toggle { margin: 0; }
