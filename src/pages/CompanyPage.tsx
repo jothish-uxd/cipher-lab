@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { findCustomer } from '../data/customers';
 import { currentStage, useStoreVersion } from '../data/contracts';
+import { currentTrainingSet } from '../data/fulfillment';
 import { usePageTitle } from '../components/usePageTitle';
 import Breadcrumbs from '../components/Breadcrumbs';
 import StageProgress from '../components/StageProgress';
@@ -62,7 +63,7 @@ export default function CompanyPage() {
                       <Link to={`/lab/${c.id}/solutions/${s.id}`} className="row-link">{s.name}</Link>
                     </th>
                     <td>{s.labels.join(' / ')}</td>
-                    <td>{s.trainingSetId ? <code className="id">{s.trainingSetId}</code> : <span className="muted">None yet</span>}</td>
+                    <td>{currentTrainingSet(c, s) ? <code className="id">{currentTrainingSet(c, s)}</code> : <span className="muted">None yet</span>}</td>
                     <td><StageProgress stage={currentStage(c, s)} /></td>
                     <td>
                       {currentStage(c, s) === 'deployment' ? (

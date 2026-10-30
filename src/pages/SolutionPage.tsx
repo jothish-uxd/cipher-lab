@@ -7,6 +7,8 @@ import { usePageTitle } from '../components/usePageTitle';
 import Breadcrumbs from '../components/Breadcrumbs';
 import NotFoundInline from './NotFoundInline';
 import ContractCapture from './stages/ContractCapture';
+import DataFulfillment from './stages/DataFulfillment';
+import { currentTrainingSet, useFulfillment } from '../data/fulfillment';
 
 type Status = 'Complete' | 'In progress' | 'Not started';
 
@@ -26,6 +28,8 @@ export default function SolutionPage() {
 function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Solution; stageId: StageId; headingRef: RefObject<HTMLHeadingElement> }) {
   const [stage] = useSolutionStage(c, s);
   const [contract] = useContract(c, s);
+  useFulfillment(c, s); // re-render when a training set is imported
+  const trainingSet = currentTrainingSet(c, s);
   const viewing = STAGES[stageIndex(stageId)];
   const current = stageIndex(stage);
   const statusOf = (id: StageId): Status => {
@@ -79,6 +83,8 @@ function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Soluti
 
       {viewing.id === 'contract' ? (
         <ContractCapture customer={c} solution={s} />
+      ) : viewing.id === 'fulfillment' ? (
+        <DataFulfillment customer={c} solution={s} />
       ) : (
         <div className="solution-grid">
           <section className="panel stage-placeholder" aria-labelledby="stage-h">
@@ -104,7 +110,7 @@ function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Soluti
               <div><dt>Labels</dt><dd>{s.labels.join(' / ')}</dd></div>
               <div><dt>Function</dt><dd>{s.function}</dd></div>
               <div><dt>Vault</dt><dd>{s.vault}</dd></div>
-              <div><dt>Training set</dt><dd>{s.trainingSetId ? <code className="id">{s.trainingSetId}</code> : 'None yet'}</dd></div>
+              <div><dt>Training set</dt><dd>{trainingSet ? <code className="id">{trainingSet}</code> : 'None yet'}</dd></div>
             </dl>
             <h3 className="facts-sub">Team</h3>
             <ul className="team">
