@@ -1,7 +1,7 @@
 import type { StageId } from './stages';
 
 /* Placeholder data — Star Wars realm. Region stands in for the
-   vault's data-residency zone (North America / EMEA in the 2019 design). */
+   vault's data-residency zone. */
 
 export type Region = 'Core Worlds' | 'Mid Rim' | 'Outer Rim';
 

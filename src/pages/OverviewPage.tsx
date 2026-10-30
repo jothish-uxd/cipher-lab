@@ -4,15 +4,24 @@ import { STAGES } from '../data/stages';
 import { usePageTitle } from '../components/usePageTitle';
 
 const TABS = [
+  { id: 'detects', label: 'What it detects' },
   { id: 'how', label: 'How it works' },
   { id: 'why', label: 'Why it exists' },
-  { id: 'changes', label: 'What the rebuild changes' },
 ] as const;
+
+const RISKS = [
+  { name: 'Bribery and corruption', desc: 'Offers of payments, gifts or favours to officials, clients or counterparties in return for business.' },
+  { name: 'Money laundering', desc: 'Talk of structuring payments, shell companies or moving funds through third parties to hide where they came from.' },
+  { name: 'Insider dealing', desc: 'Passing on, or trading on, confidential information before it is made public.' },
+  { name: 'Market manipulation', desc: 'Coordinating orders or quotes to move prices: spoofing, front-running and collusion on benchmarks.' },
+  { name: 'Sanctions evasion', desc: 'Routing business around sanctioned people, companies or regions through intermediaries.' },
+  { name: 'Off-channel communication', desc: 'Moving a conversation to an unrecorded app so it escapes supervision and record-keeping.' },
+];
 type TabId = (typeof TABS)[number]['id'];
 
 export default function OverviewPage() {
   const h = usePageTitle('Overview');
-  const [tab, setTab] = useState<TabId>('how');
+  const [tab, setTab] = useState<TabId>('detects');
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Arrow keys move between tabs, as in a11y-charts.
@@ -36,16 +45,15 @@ export default function OverviewPage() {
     <main id="main" className="main main--solo">
       <section className="hero" aria-labelledby="ov-title">
         <h1 ref={h} tabIndex={-1} id="ov-title" className="page-title">
-          Models trained on messages no one may read.
+          Catch bribery and laundering in messages no one may read.
         </h1>
         <p className="page-lede">
-          Cipher Lab is a service workspace for building, training and deploying models that flag
-          misconduct in regulated firms’ electronic communications. The model goes to the vault.
-          The messages never come out.
+          Cipher Lab trains surveillance models on the email, chat and voice of banks, brokers and
+          asset managers, to find bribery, money laundering, market abuse and other financial crime.
+          The model goes to the vault. The messages never come out.
         </p>
         <div className="hero-actions">
           <Link to="/lab" className="btn btn--primary">Open the lab</Link>
-          <p className="note">A design rebuild of AI Studio, first designed in 2019–2020.</p>
         </div>
       </section>
 
@@ -71,8 +79,24 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      <section className="tab-panel" role="tabpanel" id="panel-how" aria-labelledby="tab-how" tabIndex={0} hidden={tab !== 'how'}>
+      <section className="tab-panel" role="tabpanel" id="panel-detects" aria-labelledby="tab-detects" tabIndex={0} hidden={tab !== 'detects'}>
         <div className="doc-block">
+          <h2 className="doc-h2">Financial crime, found in conversation</h2>
+          <p className="doc-p">
+            Each solution trains a model for one risk, on labelled examples from the customer’s own
+            vault: email, chat, collaboration tools and voice transcripts. Once deployed, it flags new
+            messages for a compliance reviewer to look at.
+          </p>
+          <dl className="feature-list">
+            {RISKS.map((r) => (
+              <div key={r.name}><dt>{r.name}</dt><dd>{r.desc}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="tab-panel" role="tabpanel" id="panel-how" aria-labelledby="tab-how" tabIndex={0} hidden={tab !== 'how'}>
+        <div className="doc-block doc-block--first">
           <h2 className="doc-h2">One solution, seven stages</h2>
           <p className="doc-p">
             Every solution moves through the same lifecycle. Only the first stage happens outside the
@@ -120,7 +144,7 @@ export default function OverviewPage() {
           <h2 className="doc-h2">The problem it solves</h2>
           <div className="prose">
             <p>
-              Banks, brokers, trading desks and insurers must record and supervise what their people
+              Banks, brokers, trading desks and asset managers must record and supervise what their people
               say: email, chat, collaboration tools, social messages and voice. Rules such as SEC
               Rule 17a-4, FINRA Rule 3110 and MiFID II require the records to be kept and reviewed,
               and the vaults that hold them are run by providers such as Global Relay, Smarsh and
@@ -153,25 +177,6 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      <section className="tab-panel" role="tabpanel" id="panel-changes" aria-labelledby="tab-changes" tabIndex={0} hidden={tab !== 'changes'}>
-        <div className="doc-block doc-block--first">
-          <h2 className="doc-h2">From 2019 to now</h2>
-          <p className="doc-p">The rebuild keeps the original lifecycle and revisits each stage with what is possible today.</p>
-          <table className="table">
-            <caption className="visually-hidden">Original design compared with the rebuild</caption>
-            <thead>
-              <tr><th scope="col">Stage</th><th scope="col">2019 design</th><th scope="col">Rebuild</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">Data fulfillment</th><td>Press “Request status” until the counts arrive</td><td>Live request status, with a notice when every label is ready</td></tr>
-              <tr><th scope="row">Data analysis</th><td>Top words and phrases shown as-is</td><td>Aggregates with privacy noise, so no single message can be recovered</td></tr>
-              <tr><th scope="row">Training</th><td>Random forest, naive Bayes and logistic regression on word counts</td><td>Those models kept as baselines beside language-model classifiers</td></tr>
-              <tr><th scope="row">Model evaluation</th><td>Metrics side by side</td><td>Pass or fail against the contract’s criteria, and why each message was flagged</td></tr>
-              <tr><th scope="row">Deployment</th><td>Switch a model on</td><td>Versioned services, and monitoring for drift after go-live</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
     </main>
   );
 }

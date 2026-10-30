@@ -275,7 +275,7 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 
 /* ---------- Overview ---------- */
 .hero { padding-top: 24px; }
-.hero .page-title { font-size: clamp(44px, 7vw, 72px); line-height: 1; letter-spacing: -.055em; max-width: 13ch; }
+.hero .page-title { font-size: clamp(44px, 7vw, 72px); line-height: 1; letter-spacing: -.055em; max-width: 16ch; }
 .hero .page-lede { margin-top: 24px; font-size: 18px; }
 .hero-actions { margin-top: 40px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 

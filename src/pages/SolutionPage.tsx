@@ -80,7 +80,7 @@ export default function SolutionPage() {
                 : 'Runs inside the customer’s vault. Message content never leaves it.'}
             </p>
           )}
-          <p className="muted stage-placeholder__todo">This screen is next in the rebuild.</p>
+          <p className="muted stage-placeholder__todo">This stage’s screen is coming soon.</p>
         </section>
 
         <aside className="panel solution-facts" aria-labelledby="facts-h">

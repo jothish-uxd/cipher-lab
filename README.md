@@ -1,6 +1,6 @@
 # Cipher Lab
 
-A rebuild of AI Studio, a 2019–2020 tool for building, training and deploying models that flag misconduct in regulated firms’ electronic communications, without the messages ever leaving the customer’s vault.
+Build, train and deploy surveillance models on the electronic communications of financial firms, to find bribery, money laundering, market abuse and other financial crime, without the messages ever leaving the customer’s vault.
 
 Placeholder customers, people and data come from the Star Wars galaxy.
 
