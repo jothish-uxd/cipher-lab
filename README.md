@@ -21,7 +21,7 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/data/customers.ts` — placeholder customers, solutions, models and teams.
 - `src/pages/OverviewPage.tsx` — what the product is and who it serves.
 - `src/pages/LabLayout.tsx` — the app: left nav lists customers, then drills into one customer’s solutions and models.
-- `src/pages/NewSolutionPage.tsx` — start a solution: choose the risk, name it, land on a blank contract. Mandalore Sovereign Fund starts empty to show this.
+- `src/pages/NewSolutionPage.tsx` — start a solution: choose the risk, name it, land on a blank contract.
 - `src/components/ResetLab.tsx` — reset button in the frame bar; clears every change saved in this browser.
 - `src/pages/SolutionPage.tsx` — the stage shell each lifecycle screen plugs into.
 - `src/pages/stages/ContractCapture.tsx` — stage 1: solution details, success criteria, data request, team, sign-off and activity.

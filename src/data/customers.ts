@@ -358,9 +358,8 @@ function generateCustomers(): Customer[] {
       region,
       vaultProvider,
       lastActivity: d.toISOString().slice(0, 10),
-      // Mandalore starts with nothing, so the new-solution flow can be shown from scratch.
-      solutions: id === 'mandalore-sovereign-fund' ? [] : solutions,
-      models: id === 'mandalore-sovereign-fund' ? [] : models,
+      solutions,
+      models,
     };
   });
 }
