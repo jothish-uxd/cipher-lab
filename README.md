@@ -15,7 +15,8 @@ Then open the local address Vite prints (usually http://localhost:5173).
 
 ## Structure
 
-- `src/styles/tokens.css` — every color, type and spacing value. Taken from the a11y-charts design system.
+- `src/styles/tokens.css` — every color, type and spacing value. Taken from the a11y-charts design system; see `DESIGN-SYSTEM.md`.
+- `src/components/BrowserFrame.tsx` — design-system component that runs the lab inside a full-viewport browser window.
 - `src/data/stages.ts` — the seven-stage lifecycle.
 - `src/data/customers.ts` — placeholder customers, solutions, models and teams.
 - `src/pages/OverviewPage.tsx` — what the product is and who it serves.
