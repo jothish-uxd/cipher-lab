@@ -8,6 +8,9 @@ import CompanyPage from './pages/CompanyPage';
 import SolutionPage from './pages/SolutionPage';
 import NewSolutionPage from './pages/NewSolutionPage';
 import NotFound from './pages/NotFound';
+import VaultLayout from './pages/vault/VaultLayout';
+import MessagesPage from './pages/vault/MessagesPage';
+import VaultPoliciesPage from './pages/vault/PoliciesPage';
 
 export default function App() {
   return (
@@ -24,6 +27,12 @@ export default function App() {
           <Route path=":customerId/solutions/new" element={<NewSolutionPage />} />
           <Route path=":customerId/solutions/:solutionId" element={<SolutionPage />} />
           <Route path=":customerId/solutions/:solutionId/:stageId" element={<SolutionPage />} />
+        </Route>
+        <Route path="/vault" element={<VaultLayout />}>
+          <Route index element={<Navigate to="/vault/all" replace />} />
+          <Route path="policies" element={<VaultPoliciesPage />} />
+          <Route path=":viewId" element={<MessagesPage />} />
+          <Route path=":viewId/:messageId" element={<MessagesPage />} />
         </Route>
         <Route path="/studio/*" element={<Navigate to="/lab" replace />} />
         <Route path="*" element={<NotFound />} />

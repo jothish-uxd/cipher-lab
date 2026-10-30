@@ -14,6 +14,7 @@ export default function AppHeader() {
       <nav className="header-tabs" aria-label="Primary">
         <NavLink to="/overview" className="header-tab">Overview</NavLink>
         <NavLink to="/lab" className="header-tab">Lab</NavLink>
+        <NavLink to="/vault" className="header-tab">Vault</NavLink>
       </nav>
 
       <div className="header-actions">

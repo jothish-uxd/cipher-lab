@@ -96,12 +96,52 @@ import Select from './components/Select';
 | `options` | `{ value, label }` list |
 | `describedBy` | id of help text that describes the field |
 | `inline` | Label beside the button instead of above it |
+| `hideLabel` | Keep the label for screen readers only, for compact fields whose context already names them (a status inside a policy match) |
 | `className` | Extra classes, e.g. `select--wide` for a 240px minimum |
 
 Rules:
 
 - **Looks like a field, opens like a menu.** Chevron sits 14px from the right edge and flips when open. The list floats 6px below with an 8px radius and soft shadow; the active option has a `--bg-hover` wash, the chosen one is weight 500 with a check.
-- **Never clipped.** Near the bottom of its scrolling area, the list opens upward. Long lists scroll at 280px.
+- **Never clipped.** Near the bottom of its scrolling area (the nearest `[data-scroll]` or `.lab-main`), the list opens upward. Long lists scroll at 280px.
 - **Focus stays on the button.** The open list is announced through `aria-activedescendant`, so screen readers hear "Metric, Precision" and each option as you move.
 - **Keyboard.** Enter, Space or the arrow keys open it. Up/Down, Home/End and Page Up/Down move. Typing jumps to a matching option. Enter or Space chooses, Escape closes without changing, Tab chooses and moves on.
 - **High contrast.** In forced-colors mode the active option gets a system Highlight outline.
+
+### HoverCard
+
+`src/components/HoverCard.tsx`, styles under "Hover card" in `src/styles/vault.css`.
+
+Details that appear on hover or keyboard focus. In the Vault: the policy matches and AI predictions on a message row, a prediction chip's model and policies, a classification tag's group and members.
+
+```tsx
+import HoverCard from './components/HoverCard';
+
+<HoverCard label="3 policy matches, 2 open" card={<PolicyMatchesCard m={m} r={r} />}>
+  <FlagIcon filled /> 2
+</HoverCard>
+```
+
+| Prop | What it does |
+| --- | --- |
+| `label` | Accessible name of the trigger button |
+| `card` | Card content, text only |
+| `children` | What the trigger shows |
+| `onClick` | Optional click handler on the trigger |
+
+Rules (WCAG 1.4.13, content on hover or focus):
+
+- **The trigger is a real button** with its own name. The card is linked with `aria-describedby`, so screen readers hear it on focus.
+- **Hoverable, dismissable, persistent.** The pointer can move onto the card; Escape closes it; it stays until pointer or focus leaves. Scrolling closes it.
+- **Text only.** Never put links or buttons in a card. Actions go in the page.
+- **Never clipped.** It renders at the end of `<body>`, positions against the trigger and flips above when there's no room below. The arrow follows the trigger.
+
+## Vault patterns
+
+`src/styles/vault.css`. Built on the same tokens; nothing there overrides the Lab's styles.
+
+- **Message list.** Hairline rows, 42px tall; sticky header with a `--rule-strong` bottom rule. Unread: an 8px ink dot and weight 600 on sender and subject. Open message: `--bg-hover` row with a 3px ink bar on the left, matching the current nav link. Tab reaches one stop per row (the subject); Up and Down move between rows and open them.
+- **Narrow lists drop columns** with container queries: recipients first, then size and attachments, then AI predictions and date.
+- **Reading pane** below or beside the list (segmented control, remembered). Under 760px one pane shows at a time, with a back link.
+- **Lexicon highlight.** Matched phrases are wrapped in `<mark>`: a `--bg-hover` wash with a 2px ink underline, so it reads in both themes without color. In forced-colors mode it uses the system Mark colors.
+- **Disclosure, pill, prediction chip.** Collapsible review sections use a full-width button with a chevron and an ink **pill** count. Prediction chips are 30px, 6px radius, `--bg-subtle` with a `--rule-strong` border.
+- **Counts in the nav** sit right-aligned in Geist Mono, `--ink-faint`, turning `--ink` on the current view.

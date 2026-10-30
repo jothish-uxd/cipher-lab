@@ -12,6 +12,8 @@ interface Props<T extends string | number> {
   describedBy?: string;
   /** Show the label beside the button instead of above it */
   inline?: boolean;
+  /** Keep the label for screen readers only (the context already names the field) */
+  hideLabel?: boolean;
 }
 
 /**
@@ -20,7 +22,7 @@ interface Props<T extends string | number> {
  * Keys: Enter, Space, Alt+Down or Down to open; Up/Down, Home/End and typing to move;
  * Enter or Space to choose; Escape to close without choosing; Tab chooses and moves on.
  */
-export default function Select<T extends string | number>({ label, value, options, onChange, className, describedBy, inline }: Props<T>) {
+export default function Select<T extends string | number>({ label, value, options, onChange, className, describedBy, inline, hideLabel }: Props<T>) {
   const id = useId();
   const [open, setOpen] = useState(false);
   const selected = Math.max(0, options.findIndex((o) => o.value === value));
@@ -45,7 +47,7 @@ export default function Select<T extends string | number>({ label, value, option
   // Open upward when there isn't room below inside the scrolling area.
   useLayoutEffect(() => {
     if (!open || !buttonRef.current || !listRef.current) return;
-    const scroller = buttonRef.current.closest('.lab-main') ?? document.documentElement;
+    const scroller = buttonRef.current.closest('[data-scroll], .lab-main') ?? document.documentElement;
     const b = buttonRef.current.getBoundingClientRect();
     const area = scroller.getBoundingClientRect();
     const h = listRef.current.offsetHeight;
@@ -103,7 +105,7 @@ export default function Select<T extends string | number>({ label, value, option
 
   return (
     <div className={`field select${inline ? ' field--inline' : ''}${className ? ` ${className}` : ''}`} ref={wrapRef}>
-      <span className="field__label" id={`${id}-label`}>{label}</span>
+      <span className={hideLabel ? 'visually-hidden' : 'field__label'} id={`${id}-label`}>{label}</span>
       <div className="select__anchor">
         <button
           ref={buttonRef}

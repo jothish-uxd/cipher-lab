@@ -8,6 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import StageProgress from '../components/StageProgress';
 import Toggle from '../components/Toggle';
 import NotFoundInline from './NotFoundInline';
+import { ORG as VAULT_ORG } from '../data/vault/lab';
 
 export default function CompanyPage() {
   const { customerId } = useParams();
@@ -27,6 +28,9 @@ export default function CompanyPage() {
           <div><dt>Vault region</dt><dd>{c.region}</dd></div>
           <div><dt>Vault provider</dt><dd>{c.vaultProvider}</dd></div>
         </dl>
+        {c.id === VAULT_ORG.id && (
+          <p className="page-sub">Its compliance team reviews what these models flag in <Link to="/vault/all">the vault</Link>.</p>
+        )}
       </header>
 
       <section aria-labelledby="solutions-h" className="section">
