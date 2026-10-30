@@ -47,6 +47,7 @@ export interface Customer {
 const owner = (name: string): Person => ({ name, role: 'Solution owner', access: 1 });
 const ds = (name: string): Person => ({ name, role: 'Data scientist', access: 2 });
 const reviewer = (name: string): Person => ({ name, role: 'Compliance reviewer', access: 3 });
+const owner_ = owner, ds_ = ds, reviewer_ = reviewer;
 
 export const CURRENT_USER = { name: 'Jyn Erso', role: 'Service data scientist', initials: 'JE' };
 
@@ -237,7 +238,125 @@ export const CUSTOMERS: Customer[] = [
     models: [],
     solutions: [],
   },
+  ...generateCustomers(),
 ];
+
+/* ---------- 30 more placeholder customers ----------
+   Generated from a fixed seed so the data is identical on every load. */
+
+function generateCustomers(): Customer[] {
+  let seed = 20261030;
+  const rand = () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const pick = <T,>(list: readonly T[]) => list[Math.floor(rand() * list.length)];
+  const slug = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  const firms: [string, string, Region, string][] = [
+    ['Aargau Central Bank', 'Central banking', 'Core Worlds', 'Aargau Deep Vault'],
+    ['Scipio Treasury Bank', 'Retail banking', 'Outer Rim', 'Scipio Holovault'],
+    ['Muunilinst Credit Exchange', 'Exchange', 'Outer Rim', 'Muunilinst Holovault'],
+    ['Coruscant Stock Exchange', 'Exchange', 'Core Worlds', 'Galactic City Vault'],
+    ['Commerce Guild Securities', 'Brokerage', 'Mid Rim', 'Guild Records Vault'],
+    ['Techno Union Capital', 'Investment banking', 'Outer Rim', 'Skako Data Vault'],
+    ['Trade Federation Asset Management', 'Asset management', 'Mid Rim', 'Neimoidia Vault'],
+    ['Chandrila Credit Union', 'Credit union', 'Core Worlds', 'Hanna City Vault'],
+    ['Alderaan Royal Trust', 'Private banking', 'Core Worlds', 'Aldera Archive Vault'],
+    ['Theed Royal Bank', 'Retail banking', 'Mid Rim', 'Naboo Royal Vault'],
+    ['Hosnian Prime Securities', 'Brokerage', 'Core Worlds', 'Hosnian Vault'],
+    ['Canto Bight Payments', 'Payments', 'Outer Rim', 'Cantonica Vault'],
+    ['Kessel Mining Finance', 'Commodities trading', 'Outer Rim', 'Kessel Run Vault'],
+    ['Mon Cala Mutual', 'Asset management', 'Outer Rim', 'Dac Tidal Vault'],
+    ['Bonadan Industrial Bank', 'Commercial banking', 'Outer Rim', 'Bonadan Vault'],
+    ['Jakku Salvage Credit', 'Specialty lending', 'Outer Rim', 'Niima Outpost Vault'],
+    ['Ord Mantell Brokerage', 'Brokerage', 'Mid Rim', 'Worlport Vault'],
+    ['Mandalore Sovereign Fund', 'Sovereign wealth', 'Outer Rim', 'Sundari Vault'],
+    ['Lothal Agricultural Bank', 'Commercial banking', 'Outer Rim', 'Capital City Vault'],
+    ['Kashyyyk Timber Exchange', 'Commodities trading', 'Mid Rim', 'Kachirho Vault'],
+    ['Sullust Energy Trading', 'Energy trading', 'Outer Rim', 'Pinyumb Vault'],
+    ['Corulag Wealth Partners', 'Wealth management', 'Core Worlds', 'Corulag Vault'],
+    ['Fondor Shipyards Credit', 'Specialty lending', 'Core Worlds', 'Fondor Orbital Vault'],
+    ['Chandrila Pension Trust', 'Pension fund', 'Core Worlds', 'Hanna City Vault'],
+    ['Kuat Treasury Partners', 'Investment banking', 'Core Worlds', 'Kuat Orbital Vault'],
+    ['Bespin Clearing House', 'Clearing house', 'Outer Rim', 'Cloud City Vault'],
+    ['Ryloth Ryll Commodities', 'Commodities trading', 'Outer Rim', 'Lessu Vault'],
+    ['Corellian Merchant Bank', 'Commercial banking', 'Core Worlds', 'Coronet Vault'],
+    ['Eriadu Capital Markets', 'Investment banking', 'Outer Rim', 'Eriadu Vault'],
+    ['Taris Exchange Bank', 'Retail banking', 'Outer Rim', 'Taris Undercity Vault'],
+  ];
+
+  const risks: { name: string; labels: [string, string]; fn: string }[] = [
+    { name: 'Bribery and corruption', labels: ['Bribery', 'Not bribery'], fn: 'Anti-bribery' },
+    { name: 'Money laundering', labels: ['Laundering', 'Not laundering'], fn: 'Anti-money laundering' },
+    { name: 'Insider dealing', labels: ['Insider dealing', 'Not insider dealing'], fn: 'Market abuse' },
+    { name: 'Market spoofing', labels: ['Spoofing', 'Not spoofing'], fn: 'Market abuse' },
+    { name: 'Front-running', labels: ['Front-running', 'Not front-running'], fn: 'Market abuse' },
+    { name: 'Benchmark collusion', labels: ['Collusion', 'No collusion'], fn: 'Market abuse' },
+    { name: 'Sanctions evasion', labels: ['Evasion', 'No evasion'], fn: 'Sanctions' },
+    { name: 'Off-channel communication', labels: ['Off-channel', 'On-channel'], fn: 'Recordkeeping' },
+    { name: 'Gifts and entertainment', labels: ['Improper gift', 'Not improper'], fn: 'Anti-bribery' },
+    { name: 'Unauthorised trading', labels: ['Unauthorised', 'Authorised'], fn: 'Trading conduct' },
+  ];
+  const stages: StageId[] = ['contract', 'fulfillment', 'analysis', 'features', 'training', 'evaluation', 'deployment', 'deployment', 'deployment'];
+  const owners = ['Mon Mothma', 'Bail Organa', 'Padmé Amidala', 'Lando Calrissian', 'Hera Syndulla', 'Saw Gerrera', 'Wilhuff Tarkin', 'Dexter Jettster', 'Maz Kanata', 'Rio Durant', 'Enfys Nest', 'Qi’ra', 'Tobias Beckett', 'Kleya Marki', 'Luthen Rael', 'Vel Sartha', 'Dedra Meero', 'Syril Karn', 'Mon Fortune', 'Tay Kolma'];
+  const scientists = ['Jyn Erso', 'Bodhi Rook', 'Cassian Andor', 'Sabine Wren', 'Kanan Jarrus'];
+  const reviewers = ['Davo Sculdun', 'Perrin Fertha', 'Blevin Haro', 'Lonni Jung'];
+
+  return firms.map(([name, sector, region, vaultProvider], i) => {
+    const id = slug(name);
+    const count = i % 7 === 6 ? 0 : 1 + Math.floor(rand() * 4); // a few are still onboarding
+    const chosen = [...risks].sort(() => rand() - 0.5).slice(0, count);
+    const owner = pick(owners);
+    const models: Model[] = [];
+    const solutions: Solution[] = chosen.map((r) => {
+      const stage = pick(stages);
+      const sid = slug(r.name);
+      const deployed = stage === 'deployment';
+      const hasData = !['contract', 'fulfillment'].includes(stage);
+      const hex = Math.floor(rand() * 0xffffffff).toString(16).padStart(8, '0');
+      if (deployed) {
+        models.push({
+          id: `${id}-${sid}`,
+          name: r.name,
+          service: `cl-${sid}-${id.split('-')[0]}`,
+          version: `${1 + Math.floor(rand() * 3)}.${Math.floor(rand() * 5)}.${Math.floor(rand() * 9)}`,
+          enabled: rand() > 0.25,
+        });
+      }
+      const team: Person[] = [owner_(owner)];
+      if (stage !== 'contract') team.push(ds_(pick(scientists)));
+      if (rand() > 0.5) team.push(reviewer_(pick(reviewers)));
+      return {
+        id: sid,
+        name: r.name,
+        type: 'Binary classifier',
+        labels: r.labels,
+        function: r.fn,
+        vault: region,
+        modelId: deployed ? `${id}-${sid}` : undefined,
+        trainingSetId: hasData ? `ts-${hex}` : undefined,
+        stage,
+        enabled: deployed ? models[models.length - 1].enabled : false,
+        team,
+      };
+    });
+    const day = 1 + Math.floor(rand() * 59); // Sept 1 – Oct 29, 2026
+    const d = new Date(Date.UTC(2026, 8, day));
+    return {
+      id,
+      name,
+      sector,
+      region,
+      vaultProvider,
+      lastActivity: d.toISOString().slice(0, 10),
+      solutions,
+      models,
+    };
+  });
+}
 
 export const findCustomer = (id?: string) => CUSTOMERS.find((c) => c.id === id);
 export const findSolution = (c: Customer | undefined, id?: string) => c?.solutions.find((s) => s.id === id);
