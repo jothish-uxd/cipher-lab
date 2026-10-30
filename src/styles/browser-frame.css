@@ -16,8 +16,11 @@
   padding: var(--bframe-gutter);
   display: flex;
 }
-/* Wide screens: give the frame a little more width. */
-@media (min-width: 1280px) { .bframe-stage { padding: 14px 10px 10px; } }
+/* Wide screens: the frame takes 90% of the width and height under the header, centered. */
+@media (min-width: 1280px) {
+  .bframe-stage { padding: 0; align-items: center; justify-content: center; }
+  .bframe-stage > .bframe { flex: 0 0 90%; max-width: 90%; height: 90%; }
+}
 @media (max-width: 520px)  { .bframe-stage { --bframe-gutter: 8px; } }
 
 .bframe {
