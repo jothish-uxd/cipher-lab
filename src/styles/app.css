@@ -79,7 +79,6 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 }
 .icon-button:hover { background: var(--bg-hover); }
 .icon-button svg { width: 16px; height: 16px; }
-.menu-button { display: none; }
 
 .avatar {
   display: inline-grid; place-items: center; width: 32px; height: 32px; flex: none;
@@ -88,18 +87,62 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 }
 .avatar--sm { width: 28px; height: 28px; font-size: 11px; }
 
-/* ---------- Shell ---------- */
-.app-shell {
-  display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
-  max-width: var(--shell-max); margin: 0 auto;
-}
-.sidebar {
-  position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h));
-  overflow-y: auto; padding: 48px 24px 24px;
-  display: flex; flex-direction: column; background: var(--bg);
-}
+/* ---------- Pages outside the lab ---------- */
 .main { min-width: 0; padding: 72px clamp(24px, 5vw, 80px) 120px; }
 .main--solo { max-width: var(--shell-max); margin: 0 auto; }
+
+/* ---------- Lab frame ----------
+   A plain browser window that fills the viewport under the site header.
+   The page never scrolls; the sidebar and the content scroll inside the frame. */
+.lab-stage {
+  height: calc(100dvh - var(--header-h));
+  padding: 16px;
+  display: flex;
+}
+.frame {
+  flex: 1; min-width: 0; min-height: 0;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--rule-strong); border-radius: 12px; overflow: hidden;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 12px 32px -12px rgba(0, 0, 0, .12);
+}
+.frame__bar {
+  flex: none; height: 44px;
+  display: flex; align-items: center; gap: 12px; padding: 0 12px;
+  background: var(--bg-subtle); border-bottom: 1px solid var(--rule);
+}
+.frame__dots { display: flex; gap: 6px; }
+.frame__dots span { width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--rule-strong); background: var(--bg); }
+.frame__nav { display: flex; gap: 2px; }
+.frame__btn {
+  appearance: none; display: inline-grid; place-items: center;
+  width: 28px; height: 28px; border: 0; border-radius: 6px; background: none; color: var(--ink-soft); cursor: pointer;
+}
+.frame__btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--ink); }
+.frame__btn:disabled { opacity: .35; cursor: default; }
+.frame__btn svg, .frame__address svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.frame__menu { display: none; }
+.frame__address {
+  flex: 1; min-width: 0; max-width: 640px; margin: 0 auto;
+  display: flex; align-items: center; gap: 0;
+  height: 28px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg);
+  font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); white-space: nowrap; overflow: hidden;
+}
+.frame__address svg { width: 13px; height: 13px; flex: none; margin-right: 8px; }
+.frame__host { color: var(--ink-soft); }
+.frame__path { overflow: hidden; text-overflow: ellipsis; }
+.frame__user { flex: none; }
+
+.frame__body {
+  flex: 1; min-height: 0; position: relative;
+  display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+}
+.sidebar {
+  min-height: 0; overflow-y: auto; padding: 32px 24px 20px;
+  display: flex; flex-direction: column; background: var(--bg);
+  border-right: 1px solid var(--rule);
+}
+.frame__main { min-width: 0; min-height: 0; overflow-y: auto; padding: 40px clamp(20px, 4vw, 56px) 64px; }
 
 .nav-group + .nav-group { margin-top: 32px; }
 .nav-heading {
@@ -341,11 +384,11 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 }
 
 @media (max-width: 960px) {
-  .menu-button { display: inline-flex; }
-  .app-shell { grid-template-columns: 1fr; }
+  /* The lab's nav becomes a panel inside the frame, opened from the frame's menu button. */
+  .frame__menu { display: inline-grid; }
+  .frame__body { grid-template-columns: 1fr; }
   .sidebar {
-    position: fixed; inset: var(--header-h) 0 0 0; z-index: 25; height: auto;
-    padding: 28px 24px; border-top: 1px solid var(--rule);
+    position: absolute; inset: 0; z-index: 5; border-right: 0;
     visibility: hidden; opacity: 0; transition: opacity .14s ease, visibility 0s .14s;
   }
   .sidebar.is-open { visibility: visible; opacity: 1; transition: opacity .14s ease; }
@@ -363,7 +406,9 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 @media (max-width: 520px) {
   .main { padding: 36px 20px 80px; }
   .site-header { padding: 0 16px; gap: 8px; }
-  .menu-button span { display: none; }
+  .lab-stage { padding: 8px; }
+  .frame__dots, .frame__host { display: none; }
+  .frame__main { padding: 28px 16px 48px; }
   .wordmark { font-size: 14px; }
   .doc-block + .doc-block { margin-top: 64px; }
 }
@@ -371,3 +416,6 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Inside the frame, lab pages use the full width available. */
+.frame__main .page { max-width: none; }
