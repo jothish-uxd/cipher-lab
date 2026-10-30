@@ -40,11 +40,11 @@ export default function OverviewPage() {
         </h1>
         <p className="page-lede">
           Cipher Lab is a service workspace for building, training and deploying models that flag
-          misconduct in regulated firms’ electronic communications. The model goes to the archive.
+          misconduct in regulated firms’ electronic communications. The model goes to the vault.
           The messages never come out.
         </p>
         <div className="hero-actions">
-          <Link to="/studio" className="btn btn--primary">Open the studio</Link>
+          <Link to="/lab" className="btn btn--primary">Open the lab</Link>
           <p className="note">A design rebuild of AI Studio, first designed in 2019–2020.</p>
         </div>
       </section>
@@ -76,7 +76,7 @@ export default function OverviewPage() {
           <h2 className="doc-h2">One solution, seven stages</h2>
           <p className="doc-p">
             Every solution moves through the same lifecycle. Only the first stage happens outside the
-            customer’s archive; one more lets aggregate scores out.
+            customer’s vault; one more lets aggregate scores out.
           </p>
           <ol className="flow">
             <li className="flow__stage flow__stage--outside">
@@ -86,7 +86,7 @@ export default function OverviewPage() {
             </li>
             <li className="flow__boundary">
               <p className="flow__boundary-label" id="boundary-label">
-                <LockIcon /> Inside the customer’s archive
+                <LockIcon /> Inside the customer’s vault
               </p>
               <ol className="flow__inside" aria-labelledby="boundary-label" start={2}>
                 {inside.map((s, i) => (
@@ -107,10 +107,10 @@ export default function OverviewPage() {
         <div className="doc-block">
           <h2 className="doc-h2">What it promises customers</h2>
           <dl className="feature-list">
-            <div><dt>The data stays where it is</dt><dd>Fulfillment, analysis, training and serving run inside the customer’s archive region. Analysts see distributions and counts, never a message.</dd></div>
+            <div><dt>The data stays where it is</dt><dd>Fulfillment, analysis, training and serving run inside the customer’s vault region. Analysts see distributions and counts, never a message.</dd></div>
             <div><dt>Success is agreed first</dt><dd>Contract capture sets the criteria a model must meet, such as minimum precision on the risky label. Evaluation checks every candidate against them.</dd></div>
             <div><dt>Every decision is on the record</dt><dd>Who requested data, which features were kept, which model shipped and who switched it on. A regulator can follow the whole trail.</dd></div>
-            <div><dt>Built for many customers at once</dt><dd>Service data scientists move solutions for every customer from one studio, each customer’s data sealed in its own archive.</dd></div>
+            <div><dt>Built for many customers at once</dt><dd>Service data scientists move solutions for every customer from one lab, each customer’s data sealed in its own vault.</dd></div>
           </dl>
         </div>
       </section>
@@ -123,7 +123,7 @@ export default function OverviewPage() {
               Banks, brokers, trading desks and insurers must record and supervise what their people
               say: email, chat, collaboration tools, social messages and voice. Rules such as SEC
               Rule 17a-4, FINRA Rule 3110 and MiFID II require the records to be kept and reviewed,
-              and the archives that hold them are run by providers such as Global Relay, Smarsh and
+              and the vaults that hold them are run by providers such as Global Relay, Smarsh and
               Bloomberg Vault.
             </p>
             <p>
@@ -145,7 +145,7 @@ export default function OverviewPage() {
             <caption className="visually-hidden">Roles in Cipher Lab</caption>
             <thead><tr><th scope="col">Role</th><th scope="col">What they do</th></tr></thead>
             <tbody>
-              <tr><th scope="row">Service data scientist</th><td>Moves each solution through the stages, across many customers. The studio is built for them.</td></tr>
+              <tr><th scope="row">Service data scientist</th><td>Moves each solution through the stages, across many customers. The lab is built for them.</td></tr>
               <tr><th scope="row">Solution owner</th><td>Sits at the customer, agrees the contract and approves what goes live.</td></tr>
               <tr><th scope="row">Compliance reviewer</th><td>Needs to know why a message was flagged, and to show their regulator.</td></tr>
             </tbody>

@@ -11,7 +11,7 @@ export interface Stage {
   id: StageId;
   name: string;
   summary: string;
-  /** Where the work happens relative to the customer's archive. */
+  /** Where the work happens relative to the customer's vault. */
   zone: 'outside' | 'inside' | 'crossing';
 }
 
@@ -19,13 +19,13 @@ export const STAGES: Stage[] = [
   {
     id: 'contract',
     name: 'Contract capture',
-    summary: 'Agree what the model must detect, which archive it may read, who works on it, and the success criteria it has to meet.',
+    summary: 'Agree what the model must detect, which vault it may read, who works on it, and the success criteria it has to meet.',
     zone: 'outside',
   },
   {
     id: 'fulfillment',
     name: 'Data fulfillment',
-    summary: 'Request labelled messages from the archive and track each request until enough examples of every label have arrived.',
+    summary: 'Request labelled messages from the vault and track each request until enough examples of every label have arrived.',
     zone: 'inside',
   },
   {
@@ -55,7 +55,7 @@ export const STAGES: Stage[] = [
   {
     id: 'deployment',
     name: 'Deployment',
-    summary: 'Run the chosen model as a versioned service inside the archive, and switch it on for live surveillance.',
+    summary: 'Run the chosen model as a versioned service inside the vault, and switch it on for live surveillance.',
     zone: 'inside',
   },
 ];

@@ -34,7 +34,7 @@ function CustomerList() {
       <ul className="nav-list" aria-labelledby="nav-customers">
         {list.map((c) => (
           <li key={c.id}>
-            <NavLink to={`/studio/${c.id}`} className="nav-link">{c.name}</NavLink>
+            <NavLink to={`/lab/${c.id}`} className="nav-link">{c.name}</NavLink>
           </li>
         ))}
       </ul>
@@ -48,12 +48,12 @@ function CustomerNav({ customerId }: { customerId: string }) {
   return (
     <>
       <div className="nav-group">
-        <Link to="/studio" className="back-link">
+        <Link to="/lab" className="back-link">
           <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
           All customers
         </Link>
         <ul className="nav-list">
-          <li><NavLink to={`/studio/${c.id}`} end className="nav-link nav-link--strong">{c.name}</NavLink></li>
+          <li><NavLink to={`/lab/${c.id}`} end className="nav-link nav-link--strong">{c.name}</NavLink></li>
         </ul>
       </div>
 
@@ -62,7 +62,7 @@ function CustomerNav({ customerId }: { customerId: string }) {
         <ul className="nav-list nav-list--indented" aria-labelledby="nav-solutions">
           {c.solutions.map((s) => (
             <li key={s.id}>
-              <NavLink to={`/studio/${c.id}/solutions/${s.id}`} className="nav-link">{s.name}</NavLink>
+              <NavLink to={`/lab/${c.id}/solutions/${s.id}`} className="nav-link">{s.name}</NavLink>
             </li>
           ))}
         </ul>

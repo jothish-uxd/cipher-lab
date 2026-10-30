@@ -7,11 +7,11 @@ interface Props { menuOpen: boolean; onMenu: () => void }
 
 export default function AppHeader({ menuOpen, onMenu }: Props) {
   const { theme, toggle } = useTheme();
-  const inStudio = useLocation().pathname.startsWith('/studio');
+  const inLab = useLocation().pathname.startsWith('/lab');
 
   return (
     <header className="site-header">
-      {inStudio && (
+      {inLab && (
         <button
           type="button"
           className="icon-button menu-button"
@@ -29,7 +29,7 @@ export default function AppHeader({ menuOpen, onMenu }: Props) {
 
       <nav className="header-tabs" aria-label="Primary">
         <NavLink to="/overview" className="header-tab">Overview</NavLink>
-        <NavLink to="/studio" className="header-tab">Studio</NavLink>
+        <NavLink to="/lab" className="header-tab">Lab</NavLink>
       </nav>
 
       <div className="header-actions">

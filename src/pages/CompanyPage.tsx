@@ -19,13 +19,13 @@ export default function CompanyPage() {
 
   return (
     <div className="page">
-      <Breadcrumbs items={[{ label: 'Customers', to: '/studio' }, { label: c.name }]} />
+      <Breadcrumbs items={[{ label: 'Customers', to: '/lab' }, { label: c.name }]} />
       <header className="page-head">
         <h1 ref={h} tabIndex={-1} className="page-title">{c.name}</h1>
         <dl className="facts">
           <div><dt>Sector</dt><dd>{c.sector}</dd></div>
-          <div><dt>Archive region</dt><dd>{c.region}</dd></div>
-          <div><dt>Archive provider</dt><dd>{c.archiveProvider}</dd></div>
+          <div><dt>Vault region</dt><dd>{c.region}</dd></div>
+          <div><dt>Vault provider</dt><dd>{c.vaultProvider}</dd></div>
         </dl>
       </header>
 
@@ -38,7 +38,7 @@ export default function CompanyPage() {
         {c.solutions.length === 0 ? (
           <div className="empty">
             <p className="empty__title">No solutions yet</p>
-            <p>A solution starts with contract capture: agree what the model should detect, which archive it may read, and the success criteria it has to meet.</p>
+            <p>A solution starts with contract capture: agree what the model should detect, which vault it may read, and the success criteria it has to meet.</p>
           </div>
         ) : (
           <div className="table-wrap">
@@ -57,7 +57,7 @@ export default function CompanyPage() {
                 {c.solutions.map((s) => (
                   <tr key={s.id}>
                     <th scope="row">
-                      <Link to={`/studio/${c.id}/solutions/${s.id}`} className="row-link">{s.name}</Link>
+                      <Link to={`/lab/${c.id}/solutions/${s.id}`} className="row-link">{s.name}</Link>
                     </th>
                     <td>{s.labels.join(' / ')}</td>
                     <td>{s.trainingSetId ? <code className="id">{s.trainingSetId}</code> : <span className="muted">None yet</span>}</td>

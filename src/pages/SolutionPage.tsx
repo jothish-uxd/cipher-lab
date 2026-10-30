@@ -21,15 +21,15 @@ export default function SolutionPage() {
     const i = stageIndex(id);
     return i < current ? 'Complete' : i === current ? 'In progress' : 'Not started';
   };
-  const base = `/studio/${c.id}/solutions/${s.id}`;
+  const base = `/lab/${c.id}/solutions/${s.id}`;
   const viewingStatus = statusOf(viewing.id);
 
   return (
     <div className="page">
       <Breadcrumbs
         items={[
-          { label: 'Customers', to: '/studio' },
-          { label: c.name, to: `/studio/${c.id}` },
+          { label: 'Customers', to: '/lab' },
+          { label: c.name, to: `/lab/${c.id}` },
           { label: s.name },
         ]}
       />
@@ -76,8 +76,8 @@ export default function SolutionPage() {
           {viewing.zone !== 'outside' && (
             <p className="boundary-note">
               {viewing.zone === 'crossing'
-                ? 'Runs inside the archive. Only aggregate metrics leave it.'
-                : 'Runs inside the customer’s archive. Message content never leaves it.'}
+                ? 'Runs inside the vault. Only aggregate metrics leave it.'
+                : 'Runs inside the customer’s vault. Message content never leaves it.'}
             </p>
           )}
           <p className="muted stage-placeholder__todo">This screen is next in the rebuild.</p>
@@ -89,7 +89,7 @@ export default function SolutionPage() {
             <div><dt>Type</dt><dd>{s.type}</dd></div>
             <div><dt>Labels</dt><dd>{s.labels.join(' / ')}</dd></div>
             <div><dt>Function</dt><dd>{s.function}</dd></div>
-            <div><dt>Archive</dt><dd>{s.archive}</dd></div>
+            <div><dt>Vault</dt><dd>{s.vault}</dd></div>
             <div><dt>Training set</dt><dd>{s.trainingSetId ? <code className="id">{s.trainingSetId}</code> : 'None yet'}</dd></div>
           </dl>
           <h3 className="facts-sub">Team</h3>

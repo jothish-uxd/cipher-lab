@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import AppHeader from './components/AppHeader';
 import OverviewPage from './pages/OverviewPage';
-import StudioLayout from './pages/StudioLayout';
+import LabLayout from './pages/LabLayout';
 import CustomersPage from './pages/CustomersPage';
 import CompanyPage from './pages/CompanyPage';
 import SolutionPage from './pages/SolutionPage';
@@ -20,12 +20,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/overview" replace />} />
         <Route path="/overview" element={<OverviewPage />} />
-        <Route path="/studio" element={<StudioLayout menuOpen={menuOpen} />}>
+        <Route path="/lab" element={<LabLayout menuOpen={menuOpen} />}>
           <Route index element={<CustomersPage />} />
           <Route path=":customerId" element={<CompanyPage />} />
           <Route path=":customerId/solutions/:solutionId" element={<SolutionPage />} />
           <Route path=":customerId/solutions/:solutionId/:stageId" element={<SolutionPage />} />
         </Route>
+        <Route path="/studio/*" element={<Navigate to="/lab" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

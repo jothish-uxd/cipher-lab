@@ -307,7 +307,7 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
 .feature-list dt { font-weight: 500; font-size: 15px; }
 .feature-list dd { margin: 6px 0 0; color: var(--ink-soft); font-size: 14px; }
 
-/* Lifecycle: shared hairlines like the a11y-charts gallery; the archive is a dashed enclosure. */
+/* Lifecycle: shared hairlines like the a11y-charts gallery; the vault is a dashed enclosure. */
 .flow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 6fr); gap: 16px; align-items: stretch; }
 .flow__boundary { border: 1.5px dashed var(--ink-faint); border-radius: 12px; padding: 44px 12px 12px; position: relative; }
 .flow__boundary-label {
