@@ -67,3 +67,41 @@ Rules:
 - **Small screens.** Below 960px the menu button appears; below 520px the dots and host hide so the path keeps its room.
 
 Tunables: `--bframe-gutter` (below 1280px), `--bframe-radius`, `--bframe-bar-h`. The component reads only the shared tokens above, so it drops into any project that uses them.
+
+### Select
+
+`src/components/Select.tsx`, styles under "Select (custom dropdown)" in `src/styles/app.css`.
+
+A custom dropdown that replaces the native `<select>`, following the WAI-ARIA select-only combobox pattern. It matches the other fields: same height, border and radius.
+
+```tsx
+import Select from './components/Select';
+
+<Select
+  label="Metric"
+  value={metric}
+  onChange={setMetric}
+  options={[
+    { value: 'Precision', label: 'Precision' },
+    { value: 'Recall', label: 'Recall' },
+  ]}
+  describedBy="metric-help"
+/>
+```
+
+| Prop | What it does |
+| --- | --- |
+| `label` | Visible label; also the accessible name |
+| `value`, `onChange` | Controlled value (string or number) |
+| `options` | `{ value, label }` list |
+| `describedBy` | id of help text that describes the field |
+| `inline` | Label beside the button instead of above it |
+| `className` | Extra classes, e.g. `select--wide` for a 240px minimum |
+
+Rules:
+
+- **Looks like a field, opens like a menu.** Chevron sits 14px from the right edge and flips when open. The list floats 6px below with an 8px radius and soft shadow; the active option has a `--bg-hover` wash, the chosen one is weight 500 with a check.
+- **Never clipped.** Near the bottom of its scrolling area, the list opens upward. Long lists scroll at 280px.
+- **Focus stays on the button.** The open list is announced through `aria-activedescendant`, so screen readers hear "Metric, Precision" and each option as you move.
+- **Keyboard.** Enter, Space or the arrow keys open it. Up/Down, Home/End and Page Up/Down move. Typing jumps to a matching option. Enter or Space chooses, Escape closes without changing, Tab chooses and moves on.
+- **High contrast.** In forced-colors mode the active option gets a system Highlight outline.
