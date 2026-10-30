@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AppHeader from './components/AppHeader';
+import PatternDefs from './components/charts/PatternDefs';
 import OverviewPage from './pages/OverviewPage';
 import LabLayout from './pages/LabLayout';
 import CustomersPage from './pages/CustomersPage';
@@ -11,6 +12,7 @@ export default function App() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
+      <PatternDefs />
       <AppHeader />
       <Routes>
         <Route path="/" element={<Navigate to="/overview" replace />} />

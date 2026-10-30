@@ -8,6 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import NotFoundInline from './NotFoundInline';
 import ContractCapture from './stages/ContractCapture';
 import DataFulfillment from './stages/DataFulfillment';
+import DataAnalysis from './stages/DataAnalysis';
 import { currentTrainingSet, useFulfillment } from '../data/fulfillment';
 
 type Status = 'Complete' | 'In progress' | 'Not started';
@@ -85,6 +86,8 @@ function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Soluti
         <ContractCapture customer={c} solution={s} />
       ) : viewing.id === 'fulfillment' ? (
         <DataFulfillment customer={c} solution={s} />
+      ) : viewing.id === 'analysis' ? (
+        <DataAnalysis customer={c} solution={s} />
       ) : (
         <div className="solution-grid">
           <section className="panel stage-placeholder" aria-labelledby="stage-h">
