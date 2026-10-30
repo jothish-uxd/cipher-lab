@@ -5,6 +5,7 @@ import {
   type Contract, type Metric,
 } from '../../data/contracts';
 import { formatDate } from '../../components/format';
+import Select from '../../components/Select';
 
 const ROLES: Person['role'][] = ['Solution owner', 'Data scientist', 'Compliance reviewer'];
 const fmtTime = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -227,18 +228,8 @@ function Criteria({ k, solution: s, locked, update }: {
 
       {!locked && (
         <form className="inline-form" onSubmit={add} aria-label="Add a success criterion">
-          <label className="field">
-            <span className="field__label">Metric</span>
-            <select value={metric} onChange={(e) => setMetric(e.target.value as Metric)} aria-describedby={`${formId}-help`}>
-              {METRICS.map((m) => <option key={m}>{m}</option>)}
-            </select>
-          </label>
-          <label className="field">
-            <span className="field__label">On label</span>
-            <select value={label} onChange={(e) => setLabel(e.target.value)}>
-              {s.labels.map((l) => <option key={l}>{l}</option>)}
-            </select>
-          </label>
+          <Select label="Metric" value={metric} onChange={setMetric} describedBy={`${formId}-help`} options={METRICS.map((m) => ({ value: m, label: m }))} />
+          <Select label="On label" value={label} onChange={setLabel} options={s.labels.map((l) => ({ value: l, label: l }))} />
           <label className="field field--narrow">
             <span className="field__label">At least (%)</span>
             <input type="number" min={1} max={100} value={minimum} onChange={(e) => setMinimum(Number(e.target.value))} required />
@@ -403,12 +394,7 @@ function Team({ k, locked, update }: { k: Contract; locked: boolean; update: (fn
             <span className="field__label">Name</span>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Hera Syndulla" required />
           </label>
-          <label className="field">
-            <span className="field__label">Role</span>
-            <select value={role} onChange={(e) => setRole(e.target.value as Person['role'])}>
-              {ROLES.map((r) => <option key={r}>{r}</option>)}
-            </select>
-          </label>
+          <Select label="Role" value={role} onChange={setRole} options={ROLES.map((r) => ({ value: r, label: r }))} />
           <button type="submit" className="btn btn--secondary">Add person</button>
         </form>
       )}

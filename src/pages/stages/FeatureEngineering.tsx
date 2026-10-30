@@ -9,6 +9,7 @@ import {
   type FeatureId, type FeatureSettings,
 } from '../../data/features';
 import { stageIndex } from '../../data/stages';
+import Select from '../../components/Select';
 
 const n = (x: number) => x.toLocaleString('en-GB');
 const inputsText = (x: number) => `${n(x)} ${x === 1 ? 'input' : 'inputs'}`;
@@ -230,12 +231,7 @@ function FeatureRow({ id, f, setF, channels, locked, open, onToggle, onRemove }:
                 <span className="field__label">Ignore terms in more than (% of messages)</span>
                 <input type="number" min={v.minDf + 1} max={100} value={v.maxDf} onChange={(e) => setVocab({ maxDf: Math.min(100, Math.max(v.minDf + 1, Number(e.target.value))) })} />
               </label>
-              <label className="field">
-                <span className="field__label">Terms kept per length</span>
-                <select value={v.maxTerms} onChange={(e) => setVocab({ maxTerms: Number(e.target.value) })}>
-                  {[500, 1000, 2000, 5000].map((x) => <option key={x} value={x}>{n(x)}</option>)}
-                </select>
-              </label>
+              <Select label="Terms kept per length" value={v.maxTerms} onChange={(x) => setVocab({ maxTerms: x })} options={[500, 1000, 2000, 5000].map((x) => ({ value: x, label: n(x) }))} />
               <fieldset className="checks checks--stack">
                 <legend className="field__label">Weighting</legend>
                 <label className="check"><input type="radio" name="weighting" checked={v.weighting === 'tfidf'} onChange={() => setVocab({ weighting: 'tfidf' })} />Weight by rarity (TF-IDF)</label>

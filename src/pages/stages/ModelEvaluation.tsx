@@ -8,6 +8,7 @@ import { MODELS, pct, resultFor, runProgress, useTraining, valueFor, type ModelK
 import { atThreshold, confusion, meetsContract, resultAt, useEvaluation, workload } from '../../data/evaluation';
 import { stageIndex } from '../../data/stages';
 import HBarChart from '../../components/charts/HBarChart';
+import Select from '../../components/Select';
 
 const n = (x: number) => x.toLocaleString('en-GB');
 
@@ -205,12 +206,7 @@ function Inspect(props: {
     <section className="contract-section" aria-labelledby={`${id}-h`}>
       <div className="contract-section__head">
         <h2 id={`${id}-h`} className="section-title">Inspect a model</h2>
-        <label className="field field--inline">
-          <span className="field__label">Model</span>
-          <select value={props.model} onChange={(e) => props.onInspect(e.target.value as ModelKind)}>
-            {props.inspectOptions.map((m) => <option key={m} value={m}>{MODELS[m].name}</option>)}
-          </select>
-        </label>
+        <Select inline className="select--wide" label="Model" value={props.model} onChange={props.onInspect} options={props.inspectOptions.map((m) => ({ value: m, label: MODELS[m].name }))} />
       </div>
 
       <div className="inspect-grid">
