@@ -1,6 +1,7 @@
 import type { Customer, Solution } from './customers';
 import { useContract } from './contracts';
 import { useFulfillment } from './fulfillment';
+import { stageIndex } from './stages';
 import { useStored } from './store';
 
 /*
@@ -48,11 +49,20 @@ export const DEFAULT_RULES: Rules = {
 
 const key = (c: Customer, s: Solution) => `analysis:${c.id}/${s.id}`;
 
+/** Solutions already past analysis start with a typical selection already sent. */
+export function defaultAnalysis(s: Solution): AnalysisState {
+  const past = stageIndex(s.stage) > stageIndex('analysis');
+  return past
+    ? {
+        rules: DEFAULT_RULES,
+        include: { vocabulary: Object.fromEntries(s.labels.map((l) => [l, ['words', 'pairs'] as NGram[]])), channels: true, length: true, sentiment: true },
+        sentAt: '2026-08-01T10:00:00Z',
+      }
+    : { rules: DEFAULT_RULES, include: { vocabulary: {}, channels: false, length: false, sentiment: false } };
+}
+
 export function useAnalysis(c: Customer, s: Solution) {
-  return useStored<AnalysisState>(key(c, s), () => ({
-    rules: DEFAULT_RULES,
-    include: { vocabulary: {}, channels: false, length: false, sentiment: false },
-  }));
+  return useStored<AnalysisState>(key(c, s), () => defaultAnalysis(s));
 }
 
 /* ---------- Synthetic aggregates ---------- */

@@ -25,8 +25,9 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/pages/stages/ContractCapture.tsx` — stage 1: solution details, success criteria, data request, team, sign-off and activity.
 - `src/pages/stages/DataFulfillment.tsx` — stage 2: send the data request to the vault, watch counts arrive, import the training set.
 - `src/pages/stages/DataAnalysis.tsx` — stage 3: cleaning rules, vocabulary, channel, length and sentiment aggregates; choose what to send to feature engineering.
+- `src/pages/stages/FeatureEngineering.tsx` — stage 4: tune, add or remove features, preview them on your own sentence, lock the set for training.
 - `src/components/charts/` — accessible charts ported from a11y-charts: monochrome patterns, generated summaries, one keyboard stop per chart, data tables.
-- `src/data/store.ts`, `src/data/contracts.ts`, `src/data/fulfillment.ts`, `src/data/analysis.ts` — edits made in the lab, saved in the browser (localStorage).
+- `src/data/store.ts`, `src/data/contracts.ts`, `src/data/fulfillment.ts`, `src/data/analysis.ts`, `src/data/features.ts` — edits made in the lab, saved in the browser (localStorage).
 
 ## Routes
 
