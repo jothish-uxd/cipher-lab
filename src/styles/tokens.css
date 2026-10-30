@@ -1,93 +1,59 @@
 /*
-  Cipher Lab — interim tokens.
-  Everything visual reads from these variables so the design system
-  derived from a11y-charts can replace this one file later.
+  Cipher Lab tokens — taken from the a11y-charts design system
+  (Geist, monochrome ink on white, true black in dark mode).
+  State is shown with ink weight, rules and shape, never a brand color.
 */
 
 :root {
-  /* Color — light */
-  --ground: #eef1f0;        /* cool mineral page ground */
-  --surface: #ffffff;       /* panels, tables, header */
-  --surface-sunk: #e4e9e7;  /* hover rows, inactive chips */
-  --ink: #14211f;           /* body text */
-  --muted: #55625f;         /* secondary text (5.9:1 on surface) */
-  --rule: #cdd6d3;          /* hairlines and borders */
-  --rule-strong: #9aa7a3;
-
-  --accent: #6a2bc2;        /* carried over from the 2019 purple; 7.6:1 on white */
-  --accent-ink: #ffffff;
-  --accent-wash: #f1eafb;   /* selected nav row */
-
-  --boundary: #8a5300;      /* the trust boundary (data stays inside) */
-  --boundary-wash: #fbf3e6;
-
-  --ok: #1d6b3f;
-  --ok-wash: #e5f3ea;
-  --focus: #1a5cff;
-
-  /* Type */
-  --font-ui: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  --text-xs: 0.8125rem;   /* 13 */
-  --text-sm: 0.875rem;    /* 14 */
-  --text-md: 1rem;        /* 16 */
-  --text-lg: 1.25rem;     /* 20 */
-  --text-xl: 1.625rem;    /* 26 */
-  --text-2xl: 2.25rem;    /* 36 */
-  --text-3xl: clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem);
-
-  /* Space (4px base) */
-  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
-  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
-
-  /* Shape — small radius for controls, none for structural panels */
-  --radius-control: 6px;
-  --radius-panel: 10px;
-
-  --header-h: 60px;
-  --sidebar-w: 272px;
-  --measure: 68ch;
-
   color-scheme: light;
+  --bg: #ffffff;
+  --bg-subtle: #fafafa;
+  --bg-hover: #f2f2f2;
+  --ink: #171717;
+  --ink-soft: #666666;
+  --ink-faint: #737373;
+  --rule: #ebebeb;
+  --rule-strong: #d4d4d4;
+  --focus: #0068d6;
+  --on-ink: #ffffff;      /* text on solid ink (primary button, filled switch) */
+  --ok: #107d32;          /* reserved for success text only */
+
+  --font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --header-h: 64px;
+  --sidebar-w: 240px;
+  --shell-max: 1320px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0f1514;
-    --surface: #161f1d;
-    --surface-sunk: #1e2927;
-    --ink: #e6ecea;
-    --muted: #9eaba8;
-    --rule: #2b3734;
-    --rule-strong: #4a5855;
-    --accent: #b99af5;
-    --accent-ink: #1a0f2e;
-    --accent-wash: #251c38;
-    --boundary: #e3ac52;
-    --boundary-wash: #2a2213;
-    --ok: #7fd3a1;
-    --ok-wash: #16291f;
-    --focus: #7ea6ff;
     color-scheme: dark;
+    --bg: #0a0a0a;
+    --bg-subtle: #111111;
+    --bg-hover: #1a1a1a;
+    --ink: #ededed;
+    --ink-soft: #a1a1a1;
+    --ink-faint: #8a8a8a;
+    --rule: #242424;
+    --rule-strong: #3a3a3a;
+    --focus: #52a8ff;
+    --on-ink: #0a0a0a;
+    --ok: #62c073;
   }
 }
 
 :root[data-theme="dark"] {
-  --ground: #0f1514;
-  --surface: #161f1d;
-  --surface-sunk: #1e2927;
-  --ink: #e6ecea;
-  --muted: #9eaba8;
-  --rule: #2b3734;
-  --rule-strong: #4a5855;
-  --accent: #b99af5;
-  --accent-ink: #1a0f2e;
-  --accent-wash: #251c38;
-  --boundary: #e3ac52;
-  --boundary-wash: #2a2213;
-  --ok: #7fd3a1;
-  --ok-wash: #16291f;
-  --focus: #7ea6ff;
   color-scheme: dark;
+  --bg: #0a0a0a;
+  --bg-subtle: #111111;
+  --bg-hover: #1a1a1a;
+  --ink: #ededed;
+  --ink-soft: #a1a1a1;
+  --ink-faint: #8a8a8a;
+  --rule: #242424;
+  --rule-strong: #3a3a3a;
+  --focus: #52a8ff;
+  --on-ink: #0a0a0a;
+  --ok: #62c073;
 }
