@@ -450,3 +450,9 @@ code, .id { font-family: var(--mono); font-size: 12.5px; }
   .activity li { grid-template-columns: 1fr; gap: 2px; }
   .inline-form .field { width: 100%; }
 }
+
+/* Untitled nav group: a rule stands in for the missing heading. */
+.nav-group--untitled { padding-top: 16px; border-top: 1px solid var(--rule); }
+.nav-group + .nav-group--untitled { margin-top: 20px; }
+.filter + .nav-group { margin-top: 20px; }
+.nav-empty--flush { padding-left: 0; }

@@ -358,5 +358,8 @@ function generateCustomers(): Customer[] {
   });
 }
 
+/** Customers pinned to the top of the lab's nav. */
+export const PINNED = ['igbc', 'czerka', 'coruscant-stock-exchange', 'aargau-central-bank', 'mandalore-sovereign-fund'];
+
 export const findCustomer = (id?: string) => CUSTOMERS.find((c) => c.id === id);
 export const findSolution = (c: Customer | undefined, id?: string) => c?.solutions.find((s) => s.id === id);
