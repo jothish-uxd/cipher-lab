@@ -1,6 +1,6 @@
-import { CURRENT_USER, type Customer, type Person, type Solution } from './customers';
+import { CURRENT_USER, addSolution, solutionsOf, type Customer, type Person, type RiskType, type Solution } from './customers';
 import { stageIndex, type StageId } from './stages';
-import { peek, useStored, useStoreVersion } from './store';
+import { peek, put, useStored, useStoreVersion } from './store';
 
 export const METRICS = ['Precision', 'Recall', 'F1 score', 'Accuracy'] as const;
 export type Metric = (typeof METRICS)[number];
@@ -34,7 +34,7 @@ export interface Contract {
   activity: Activity[];
 }
 
-const addDays = (iso: string, days: number) => {
+export const addDays = (iso: string, days: number) => {
   const d = new Date(iso + 'T00:00:00Z');
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
@@ -106,4 +106,32 @@ export function signOffBlockers(k: Contract): string[] {
   if (k.dates.trainingStart > k.dates.trainingEnd) out.push('Training must start before it ends.');
   if (k.dates.goLive < k.dates.trainingEnd) out.push('Go-live must come after training ends.');
   return out;
+}
+
+/** Create a blank solution at contract capture. Returns its id. */
+export function createSolution(c: Customer, risk: RiskType, name: string): string {
+  const base = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'solution';
+  const taken = new Set(solutionsOf(c).map((s) => s.id));
+  let id = base;
+  for (let i = 2; taken.has(id); i++) id = `${base}-${i}`;
+  const s: Solution = {
+    id, name: name.trim() || risk.name, type: 'Binary classifier', labels: risk.labels, function: risk.fn,
+    vault: c.region, stage: 'contract', enabled: false, team: [],
+  };
+  const today = new Date().toISOString().slice(0, 10);
+  const blank: Contract = {
+    status: 'Draft',
+    description: '',
+    dates: {
+      solutionStart: today, trainingStart: addDays(today, 14), trainingEnd: addDays(today, 75),
+      goLive: addDays(today, 90), solutionEnd: addDays(today, 455),
+    },
+    criteria: [],
+    request: { perLabel: Object.fromEntries(risk.labels.map((l) => [l, 1000])), channels: [], from: addDays(today, -365), to: today },
+    team: [],
+    activity: [logEntry('Created the solution')],
+  };
+  addSolution(c, s);
+  put(`contract:${c.id}/${id}`, blank);
+  return id;
 }

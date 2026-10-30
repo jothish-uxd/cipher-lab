@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import BrowserFrame, { useFrameHistory } from '../components/BrowserFrame';
 import { CURRENT_USER } from '../data/customers';
+import ResetLab from '../components/ResetLab';
 
 export default function LabLayout() {
   const { pathname, nav, menuOpen, setMenuOpen, scrollRef } = useFrameHistory();
@@ -13,10 +14,13 @@ export default function LabLayout() {
         nav={nav}
         menu={{ open: menuOpen, onToggle: () => setMenuOpen((o) => !o), controls: 'sidebar' }}
         end={
+          <>
+          <ResetLab />
           <span title={`${CURRENT_USER.name}, ${CURRENT_USER.role}`}>
             <span className="avatar avatar--sm" aria-hidden="true">{CURRENT_USER.initials}</span>
             <span className="visually-hidden">Signed in as {CURRENT_USER.name}, {CURRENT_USER.role}</span>
           </span>
+          </>
         }
       >
         <div className="lab-body">

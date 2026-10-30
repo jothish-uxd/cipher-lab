@@ -66,7 +66,7 @@
 .bframe__address svg { width: 13px; height: 13px; flex: none; margin-right: 8px; }
 .bframe__host { color: var(--ink-soft); }
 .bframe__path { overflow: hidden; text-overflow: ellipsis; }
-.bframe__end { flex: none; display: flex; align-items: center; }
+.bframe__end { flex: none; display: flex; align-items: center; gap: 8px; position: relative; }
 
 /* The body is the positioning context: panels opened from the bar render inside it. */
 .bframe__body { flex: 1; min-height: 0; position: relative; display: flex; }

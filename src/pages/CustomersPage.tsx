@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { CUSTOMERS } from '../data/customers';
+import { CUSTOMERS, solutionsOf } from '../data/customers';
+import { useStoreVersion } from '../data/store';
 import { usePageTitle } from '../components/usePageTitle';
 import { formatDate } from '../components/format';
 
 export default function CustomersPage() {
   const h = usePageTitle('Customers');
-  const solutions = CUSTOMERS.reduce((n, c) => n + c.solutions.length, 0);
+  useStoreVersion();
+  const solutions = CUSTOMERS.reduce((n, c) => n + solutionsOf(c).length, 0);
   const live = CUSTOMERS.reduce((n, c) => n + c.models.filter((m) => m.enabled).length, 0);
 
   return (
@@ -36,7 +38,7 @@ export default function CustomersPage() {
                 <th scope="row"><Link to={`/lab/${c.id}`} className="row-link">{c.name}</Link></th>
                 <td>{c.sector}</td>
                 <td>{c.region}</td>
-                <td className="num">{c.solutions.length || <span className="tag">Onboarding</span>}</td>
+                <td className="num">{solutionsOf(c).length || <span className="tag">Onboarding</span>}</td>
                 <td className="num">{c.models.filter((m) => m.enabled).length}</td>
                 <td><time dateTime={c.lastActivity}>{formatDate(c.lastActivity)}</time></td>
               </tr>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, useParams } from 'react-router-dom';
-import { CUSTOMERS, PINNED, findCustomer, type Customer } from '../data/customers';
+import { CUSTOMERS, PINNED, findCustomer, solutionsOf, type Customer } from '../data/customers';
+import { useStoreVersion } from '../data/store';
 
 /** Service view: every customer. Inside a customer: its solutions and models. */
 export default function Sidebar({ open }: { open: boolean }) {
@@ -65,6 +66,8 @@ function CustomerList() {
 
 function CustomerNav({ customerId }: { customerId: string }) {
   const c = findCustomer(customerId)!;
+  useStoreVersion();
+  const solutions = solutionsOf(c);
   return (
     <>
       <div className="nav-group">
@@ -80,13 +83,17 @@ function CustomerNav({ customerId }: { customerId: string }) {
       <div className="nav-group">
         <h2 className="nav-heading" id="nav-solutions"><LayersIcon /> Solutions</h2>
         <ul className="nav-list nav-list--indented" aria-labelledby="nav-solutions">
-          {c.solutions.map((s) => (
+          {solutions.map((s) => (
             <li key={s.id}>
               <NavLink to={`/lab/${c.id}/solutions/${s.id}`} className="nav-link">{s.name}</NavLink>
             </li>
           ))}
         </ul>
-        {c.solutions.length === 0 && <p className="nav-empty">No solutions yet.</p>}
+        {solutions.length === 0 && <p className="nav-empty">No solutions yet.</p>}
+        <Link to={`/lab/${c.id}/solutions/new`} className="nav-add">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
+          New solution
+        </Link>
       </div>
 
       <div className="nav-group">

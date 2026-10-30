@@ -39,6 +39,7 @@ function SolutionView({ c, s, stageId, headingRef: h }: { c: Customer; s: Soluti
   const current = stageIndex(stage);
   const statusOf = (id: StageId): Status => {
     const i = stageIndex(id);
+    if (id === 'contract' && contract.status !== 'Signed off') return 'In progress'; // reopened for amendment
     return i < current ? 'Complete' : i === current ? 'In progress' : 'Not started';
   };
   const base = `/lab/${c.id}/solutions/${s.id}`;

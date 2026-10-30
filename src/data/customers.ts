@@ -1,4 +1,5 @@
 import type { StageId } from './stages';
+import { peek, put } from './store';
 
 /* Placeholder data — Star Wars realm. Region stands in for the
    vault's data-residency zone. */
@@ -50,6 +51,22 @@ const reviewer = (name: string): Person => ({ name, role: 'Compliance reviewer',
 const owner_ = owner, ds_ = ds, reviewer_ = reviewer;
 
 export const CURRENT_USER = { name: 'Jyn Erso', role: 'Service data scientist', initials: 'JE' };
+
+export interface RiskType { name: string; labels: [string, string]; fn: string; about: string }
+
+/** The financial-crime risks a solution can detect. */
+export const RISK_TYPES: RiskType[] = [
+  { name: 'Bribery and corruption', labels: ['Bribery', 'Not bribery'], fn: 'Anti-bribery', about: 'Payments, gifts or favours offered for business or influence.' },
+  { name: 'Money laundering', labels: ['Laundering', 'Not laundering'], fn: 'Anti-money laundering', about: 'Structuring, shell companies and moving funds to hide their source.' },
+  { name: 'Insider dealing', labels: ['Insider dealing', 'Not insider dealing'], fn: 'Market abuse', about: 'Passing on or trading on confidential information.' },
+  { name: 'Market spoofing', labels: ['Spoofing', 'Not spoofing'], fn: 'Market abuse', about: 'Placing orders meant to be cancelled, to move prices.' },
+  { name: 'Front-running', labels: ['Front-running', 'Not front-running'], fn: 'Market abuse', about: 'Trading ahead of a client’s order.' },
+  { name: 'Benchmark collusion', labels: ['Collusion', 'No collusion'], fn: 'Market abuse', about: 'Coordinating submissions to move a benchmark rate.' },
+  { name: 'Sanctions evasion', labels: ['Evasion', 'No evasion'], fn: 'Sanctions', about: 'Routing business around sanctioned people or places.' },
+  { name: 'Off-channel communication', labels: ['Off-channel', 'On-channel'], fn: 'Recordkeeping', about: 'Moving conversations to unrecorded apps.' },
+  { name: 'Gifts and entertainment', labels: ['Improper gift', 'Not improper'], fn: 'Anti-bribery', about: 'Hospitality that crosses the line into inducement.' },
+  { name: 'Unauthorised trading', labels: ['Unauthorised', 'Authorised'], fn: 'Trading conduct', about: 'Trading beyond a trader’s mandate or limits.' },
+];
 
 export const CUSTOMERS: Customer[] = [
   {
@@ -288,18 +305,7 @@ function generateCustomers(): Customer[] {
     ['Taris Exchange Bank', 'Retail banking', 'Outer Rim', 'Taris Undercity Vault'],
   ];
 
-  const risks: { name: string; labels: [string, string]; fn: string }[] = [
-    { name: 'Bribery and corruption', labels: ['Bribery', 'Not bribery'], fn: 'Anti-bribery' },
-    { name: 'Money laundering', labels: ['Laundering', 'Not laundering'], fn: 'Anti-money laundering' },
-    { name: 'Insider dealing', labels: ['Insider dealing', 'Not insider dealing'], fn: 'Market abuse' },
-    { name: 'Market spoofing', labels: ['Spoofing', 'Not spoofing'], fn: 'Market abuse' },
-    { name: 'Front-running', labels: ['Front-running', 'Not front-running'], fn: 'Market abuse' },
-    { name: 'Benchmark collusion', labels: ['Collusion', 'No collusion'], fn: 'Market abuse' },
-    { name: 'Sanctions evasion', labels: ['Evasion', 'No evasion'], fn: 'Sanctions' },
-    { name: 'Off-channel communication', labels: ['Off-channel', 'On-channel'], fn: 'Recordkeeping' },
-    { name: 'Gifts and entertainment', labels: ['Improper gift', 'Not improper'], fn: 'Anti-bribery' },
-    { name: 'Unauthorised trading', labels: ['Unauthorised', 'Authorised'], fn: 'Trading conduct' },
-  ];
+  const risks = RISK_TYPES;
   const stages: StageId[] = ['contract', 'fulfillment', 'analysis', 'features', 'training', 'evaluation', 'deployment', 'deployment', 'deployment'];
   const owners = ['Mon Mothma', 'Bail Organa', 'Padmé Amidala', 'Lando Calrissian', 'Hera Syndulla', 'Saw Gerrera', 'Wilhuff Tarkin', 'Dexter Jettster', 'Maz Kanata', 'Rio Durant', 'Enfys Nest', 'Qi’ra', 'Tobias Beckett', 'Kleya Marki', 'Luthen Rael', 'Vel Sartha', 'Dedra Meero', 'Syril Karn', 'Mon Fortune', 'Tay Kolma'];
   const scientists = ['Jyn Erso', 'Bodhi Rook', 'Cassian Andor', 'Sabine Wren', 'Kanan Jarrus'];
@@ -352,8 +358,9 @@ function generateCustomers(): Customer[] {
       region,
       vaultProvider,
       lastActivity: d.toISOString().slice(0, 10),
-      solutions,
-      models,
+      // Mandalore starts with nothing, so the new-solution flow can be shown from scratch.
+      solutions: id === 'mandalore-sovereign-fund' ? [] : solutions,
+      models: id === 'mandalore-sovereign-fund' ? [] : models,
     };
   });
 }
@@ -362,4 +369,13 @@ function generateCustomers(): Customer[] {
 export const PINNED = ['igbc', 'czerka', 'coruscant-stock-exchange', 'aargau-central-bank', 'mandalore-sovereign-fund'];
 
 export const findCustomer = (id?: string) => CUSTOMERS.find((c) => c.id === id);
-export const findSolution = (c: Customer | undefined, id?: string) => c?.solutions.find((s) => s.id === id);
+
+const createdKey = (customerId: string) => `solutions:${customerId}`;
+/** Seeded solutions plus any created in the lab. Pair with useStoreVersion() to re-render. */
+export function solutionsOf(c: Customer): Solution[] {
+  return [...c.solutions, ...(peek<Solution[]>(createdKey(c.id)) ?? [])];
+}
+export function addSolution(c: Customer, s: Solution) {
+  put(createdKey(c.id), [...(peek<Solution[]>(createdKey(c.id)) ?? []), s]);
+}
+export const findSolution = (c: Customer | undefined, id?: string) => (c ? solutionsOf(c).find((s) => s.id === id) : undefined);

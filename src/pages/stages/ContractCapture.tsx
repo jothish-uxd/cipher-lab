@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
-import type { Customer, Person, Solution } from '../../data/customers';
+import { CURRENT_USER, type Customer, type Person, type Solution } from '../../data/customers';
 import {
   CHANNELS, METRICS, METRIC_HELP, logEntry, signOffBlockers, useContract, useSolutionStage,
   type Contract, type Metric,
@@ -104,7 +104,7 @@ export default function ContractCapture({ customer, solution }: { customer: Cust
 /* ---------- Solution details ---------- */
 
 function Details({ k, solution: s, locked, onSave }: { k: Contract; solution: Solution; locked: boolean; onSave: (fn: (k: Contract) => Contract) => void }) {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(!locked && !k.description.trim());
   const [draft, setDraft] = useState({ description: k.description, ...k.dates });
   const startEdit = () => { setDraft({ description: k.description, ...k.dates }); setEditing(true); };
   const save = (e: FormEvent) => {
@@ -254,7 +254,7 @@ function Criteria({ k, solution: s, locked, update }: {
 /* ---------- Data request ---------- */
 
 function DataRequest({ k, locked, onSave }: { k: Contract; locked: boolean; onSave: (fn: (k: Contract) => Contract) => void }) {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(!locked && k.request.channels.length === 0);
   const [draft, setDraft] = useState(k.request);
   const startEdit = () => { setDraft(k.request); setEditing(true); };
   const save = (e: FormEvent) => {
@@ -348,6 +348,7 @@ function Team({ k, locked, update }: { k: Contract; locked: boolean; update: (fn
         <h2 id="team-h" className="section-title">Team</h2>
       </div>
       <p className="section-lede">Access level 1 can approve; level 2 builds models; level 3 reviews results. Nobody at any level can open a message.</p>
+      {k.team.length === 0 ? <p className="empty-line">Nobody assigned yet. A solution needs a solution owner and a data scientist.</p> : (
       <table className="table">
         <caption className="visually-hidden">People assigned to this solution</caption>
         <thead>
@@ -384,6 +385,18 @@ function Team({ k, locked, update }: { k: Contract; locked: boolean; update: (fn
           ))}
         </tbody>
       </table>
+      )}
+      {!locked && !k.team.some((p) => p.name === CURRENT_USER.name) && (
+        <p className="quick-add">
+          <button
+            type="button"
+            className="btn btn--secondary btn--sm"
+            onClick={() => update((k) => ({ ...k, team: [...k.team, { name: CURRENT_USER.name, role: 'Data scientist', access: 2 }] }), `Added ${CURRENT_USER.name} as data scientist`)}
+          >
+            Add yourself as data scientist
+          </button>
+        </p>
+      )}
       {!locked && (
         <form className="inline-form" onSubmit={add} aria-label="Add a person to the team">
           <label className="field">

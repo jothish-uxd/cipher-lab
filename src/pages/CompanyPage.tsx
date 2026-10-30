@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { findCustomer } from '../data/customers';
+import { findCustomer, solutionsOf } from '../data/customers';
 import { currentStage, useStoreVersion } from '../data/contracts';
 import { currentTrainingSet } from '../data/fulfillment';
 import { hasDeployment, isLive, setLive } from '../data/deployment';
@@ -32,13 +32,14 @@ export default function CompanyPage() {
       <section aria-labelledby="solutions-h" className="section">
         <div className="section-head">
           <h2 id="solutions-h" className="section-title">Solutions</h2>
-          <button type="button" className="btn btn--secondary" aria-disabled="true" title="Coming in a later build">New solution</button>
+          <Link to={`/lab/${c.id}/solutions/new`} className="btn btn--secondary">New solution</Link>
         </div>
 
-        {c.solutions.length === 0 ? (
+        {solutionsOf(c).length === 0 ? (
           <div className="empty">
             <p className="empty__title">No solutions yet</p>
             <p>A solution starts with contract capture: agree what the model should detect, which vault it may read, and the success criteria it has to meet.</p>
+            <p><Link to={`/lab/${c.id}/solutions/new`} className="btn btn--primary">Start a new solution</Link></p>
           </div>
         ) : (
           <div className="table-wrap">
@@ -54,7 +55,7 @@ export default function CompanyPage() {
                 </tr>
               </thead>
               <tbody>
-                {c.solutions.map((s) => (
+                {solutionsOf(c).map((s) => (
                   <tr key={s.id}>
                     <th scope="row">
                       <Link to={`/lab/${c.id}/solutions/${s.id}`} className="row-link">{s.name}</Link>

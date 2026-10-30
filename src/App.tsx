@@ -6,6 +6,7 @@ import LabLayout from './pages/LabLayout';
 import CustomersPage from './pages/CustomersPage';
 import CompanyPage from './pages/CompanyPage';
 import SolutionPage from './pages/SolutionPage';
+import NewSolutionPage from './pages/NewSolutionPage';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/lab" element={<LabLayout />}>
           <Route index element={<CustomersPage />} />
           <Route path=":customerId" element={<CompanyPage />} />
+          <Route path=":customerId/solutions/new" element={<NewSolutionPage />} />
           <Route path=":customerId/solutions/:solutionId" element={<SolutionPage />} />
           <Route path=":customerId/solutions/:solutionId/:stageId" element={<SolutionPage />} />
         </Route>
