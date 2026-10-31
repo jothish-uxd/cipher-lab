@@ -30,7 +30,7 @@ export default function MessagesPage() {
   const view = findView(viewId);
   useStoreVersion();
   const r = useReview();
-  const [pane, setPane] = useStored<Pane>('pane', () => 'bottom');
+  const [pane, setPane] = useStored<Pane>('vault:pane', () => 'bottom');
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<Sort>({ key: 'date', dir: 'desc' });
   const [checked, setChecked] = useState<Set<string>>(new Set());

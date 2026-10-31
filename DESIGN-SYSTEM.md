@@ -107,6 +107,19 @@ Rules:
 - **Keyboard.** Enter, Space or the arrow keys open it. Up/Down, Home/End and Page Up/Down move. Typing jumps to a matching option. Enter or Space chooses, Escape closes without changing, Tab chooses and moves on.
 - **High contrast.** In forced-colors mode the active option gets a system Highlight outline.
 
+### ResetButton
+
+`src/components/ResetButton.tsx`, styles under `.reset` in `src/styles/app.css`.
+
+An icon button for the BrowserFrame bar (`end` slot) that clears saved changes after a confirm. Each app in a frame gets its own, scoped to its own data: the lab's and the vault's resets never touch each other.
+
+```tsx
+<ResetButton what="vault" description="…what it clears…" done="Vault reset." to="/vault/all"
+  onReset={() => resetStore(isVaultKey)} />
+```
+
+Rules: the confirm is a small `alertdialog` under the button; focus starts on **Cancel**; Escape or a click outside closes it and returns focus to the button; the result is announced in a polite live region. Say what is cleared and what is kept.
+
 ### HoverCard
 
 `src/components/HoverCard.tsx`, styles under "Hover card" in `src/styles/vault.css`.

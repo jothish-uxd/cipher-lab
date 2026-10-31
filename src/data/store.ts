@@ -53,10 +53,14 @@ export function useStoreVersion() {
   return useSyncExternalStore(subscribe, () => state);
 }
 
-/** Clear all lab edits. */
-export function resetStore() {
-  write({});
+/** Clear stored edits. With a filter, clear only the keys it accepts. */
+export function resetStore(which: (key: string) => boolean = () => true) {
+  write(Object.fromEntries(Object.entries(state).filter(([k]) => !which(k))));
 }
+
+/** The vault's review work lives under this prefix; everything else belongs to the lab. */
+export const VAULT_PREFIX = 'vault:';
+export const isVaultKey = (k: string) => k.startsWith(VAULT_PREFIX);
 
 /** Write a value outside a component (for tables that change many rows). */
 export function put<T>(key: string, value: T) {

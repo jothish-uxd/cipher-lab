@@ -24,7 +24,7 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/pages/OverviewPage.tsx` — what the product is and who it serves.
 - `src/pages/LabLayout.tsx` — the app: left nav lists customers, then drills into one customer’s solutions and models.
 - `src/pages/NewSolutionPage.tsx` — start a solution: choose the risk, name it, land on a blank contract.
-- `src/components/ResetLab.tsx` — reset button in the frame bar; clears every change saved in this browser.
+- `src/components/ResetButton.tsx` — reset button for the frame bar, with a confirm. `ResetLab.tsx` clears the lab's saved changes; `vault/ResetVault.tsx` clears the vault's review work (keys starting `vault:`). Each leaves the other alone.
 - `src/pages/SolutionPage.tsx` — the stage shell each lifecycle screen plugs into.
 - `src/pages/stages/ContractCapture.tsx` — stage 1: solution details, success criteria, data request, team, sign-off and activity.
 - `src/pages/stages/DataFulfillment.tsx` — stage 2: send the data request to the vault, watch counts arrive, import the training set.
