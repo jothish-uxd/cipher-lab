@@ -6,6 +6,7 @@ import { usePageTitle } from '../components/usePageTitle';
 const TABS = [
   { id: 'detects', label: 'What it detects' },
   { id: 'how', label: 'How it works' },
+  { id: 'vault', label: 'The vault' },
   { id: 'why', label: 'Why it exists' },
 ] as const;
 
@@ -52,8 +53,13 @@ export default function OverviewPage() {
           asset managers, to find bribery, money laundering, market abuse and other financial crime.
           The model goes to the vault. The messages never come out.
         </p>
+        <p className="page-lede hero-lede-2">
+          In the vault, the customer’s compliance officers review what those models flag, alongside
+          everything else their policies catch.
+        </p>
         <div className="hero-actions">
           <Link to="/lab" className="btn btn--primary">Open the lab</Link>
+          <Link to="/vault" className="btn btn--secondary">Open the vault</Link>
         </div>
       </section>
 
@@ -139,6 +145,59 @@ export default function OverviewPage() {
         </div>
       </section>
 
+      <section className="tab-panel" role="tabpanel" id="panel-vault" aria-labelledby="tab-vault" tabIndex={0} hidden={tab !== 'vault'}>
+        <div className="doc-block doc-block--first">
+          <h2 className="doc-h2">Where flagged messages are reviewed</h2>
+          <p className="doc-p">
+            The vault is the customer’s archive of every recorded conversation: email, Teams,
+            Bloomberg Chat, WhatsApp, text messages, Facebook Messenger and LinkedIn, kept for as long
+            as regulators require. It is where the lab’s models run, and where the firm’s compliance
+            officers work through what they flag.
+          </p>
+          <p className="doc-p">
+            It reads like an inbox. A list of messages on one side, the open message on the other,
+            and beside it every policy that matched, why it matched and what the reviewer decided.
+          </p>
+        </div>
+
+        <div className="doc-block">
+          <h2 className="doc-h2">How the lab and the vault work together</h2>
+          <ol className="loop">
+            <li>
+              <span className="loop__where">Lab</span>
+              <strong className="loop__name">Build and deploy</strong>
+              <span className="loop__desc">A service data scientist trains a model for one risk and deploys it into the customer’s vault.</span>
+            </li>
+            <li>
+              <span className="loop__where">Vault</span>
+              <strong className="loop__name">Score every message</strong>
+              <span className="loop__desc">The model scores new messages where they are stored. Policies combine its score with lexicons and the vault’s own AI predictions.</span>
+            </li>
+            <li>
+              <span className="loop__where">Vault</span>
+              <strong className="loop__name">Review what’s flagged</strong>
+              <span className="loop__desc">A compliance officer reads each flagged message, sees why it matched, and escalates or clears it.</span>
+            </li>
+            <li>
+              <span className="loop__where">Back to the lab</span>
+              <strong className="loop__name">Learn from decisions</strong>
+              <span className="loop__desc">Cleared and escalated matches become labelled examples, and precision and drift in deployment show when a model needs retraining.</span>
+            </li>
+          </ol>
+        </div>
+
+        <div className="doc-block">
+          <h2 className="doc-h2">What a reviewer sees</h2>
+          <dl className="feature-list">
+            <div><dt>Policy matches, with reasons</dt><dd>Each match names the policy and version, the group it matched under, and the cause: the lexicon phrases, highlighted in the message, or the model, its version and its score against the threshold.</dd></div>
+            <div><dt>AI predictions on every message</dt><dd>Business or personal, language and sentiment, each with the model and version that made it and the policies that use it.</dd></div>
+            <div><dt>Classification tags</dt><dd>The desks, regions and supervision lists the people on a message belong to, such as Trading / Derivatives or Heightened supervision.</dd></div>
+            <div><dt>A decision on every match</dt><dd>Flagged, escalated or cleared, recorded per match, so the firm can show its regulator what was reviewed and by whom.</dd></div>
+          </dl>
+          <p className="doc-cta"><Link to="/vault" className="btn btn--secondary">Open the vault</Link></p>
+        </div>
+      </section>
+
       <section className="tab-panel" role="tabpanel" id="panel-why" aria-labelledby="tab-why" tabIndex={0} hidden={tab !== 'why'}>
         <div className="doc-block doc-block--first">
           <h2 className="doc-h2">The problem it solves</h2>
@@ -171,7 +230,7 @@ export default function OverviewPage() {
             <tbody>
               <tr><th scope="row">Service data scientist</th><td>Moves each solution through the stages, across many customers. The lab is built for them.</td></tr>
               <tr><th scope="row">Solution owner</th><td>Sits at the customer, agrees the contract and approves what goes live.</td></tr>
-              <tr><th scope="row">Compliance reviewer</th><td>Needs to know why a message was flagged, and to show their regulator.</td></tr>
+              <tr><th scope="row">Compliance officer</th><td>Works in the vault: reviews flagged messages, needs to know why each was flagged, and has to show their regulator.</td></tr>
             </tbody>
           </table>
         </div>
