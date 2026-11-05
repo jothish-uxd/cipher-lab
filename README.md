@@ -17,8 +17,7 @@ Then open the local address Vite prints (usually http://localhost:5173).
 
 ## Structure
 
-- `src/styles/tokens.css` — every color, type and spacing value. Taken from the a11y-charts design system; see `DESIGN-SYSTEM.md`.
-- `src/components/BrowserFrame.tsx` — design-system component that runs the lab inside a full-viewport browser window.
+- Design system: [Enterprise Library](https://jothish-uxd.github.io/enterprise-library/) (`@jothish-uxd/enterprise-library`) supplies the tokens, shared styles and BrowserFrame, Select, HoverCard, StatFilter and ResetButton; see `DESIGN-SYSTEM.md`.
 - `src/data/stages.ts` — the seven-stage lifecycle.
 - `src/data/customers.ts` — placeholder customers, solutions, models and teams.
 - `src/pages/OverviewPage.tsx` — what the product is and who it serves.
@@ -36,7 +35,7 @@ Then open the local address Vite prints (usually http://localhost:5173).
 - `src/components/charts/` — accessible charts ported from a11y-charts: monochrome patterns, generated summaries, one keyboard stop per chart, data tables.
 - `src/pages/vault/` — the Vault, in its own browser frame (`vault.igbc.bank`): `MessagesPage` (list plus reading pane, below or beside), `MessageList` (unread, channel, attachments, sender, recipients, subject, policy matches, AI predictions, date, size), `MessageReader` (highlighted lexicon matches, AI predictions, policy matches with status, classification tags), `PoliciesPage` (each policy and the Lab model behind it).
 - `src/data/vault/` — the vault's placeholder organisation (InterGalactic Banking Clan), people, classification tags, channels, policies, messages and review state. `lab.ts` is where the vault meets the lab: it reads the customer, its models and their live status from the lab's own data.
-- `src/components/HoverCard.tsx` — design-system component for details on hover or focus. `src/components/vault/` — Vault's sidebar, icons and hover-card content.
+- `src/components/vault/` — Vault's sidebar, icons and hover-card content (the HoverCard itself comes from Enterprise Library).
 - `src/data/store.ts`, `src/data/contracts.ts`, `src/data/fulfillment.ts`, `src/data/analysis.ts`, `src/data/features.ts`, `src/data/training.ts`, `src/data/evaluation.ts`, `src/data/deployment.ts` — edits made in the lab, saved in the browser (localStorage).
 
 ## Routes

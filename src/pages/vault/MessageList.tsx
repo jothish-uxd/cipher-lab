@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import type { Message } from '../../data/vault/messages';
 import { findChannel, person } from '../../data/vault/org';
 import { matchesOf, openMatches, type Review } from '../../data/vault/review';
-import HoverCard from '../../components/HoverCard';
+import { HoverCard } from '@jothish-uxd/enterprise-library';
 import { PolicyMatchesCard, PredictionsCard } from '../../components/vault/cards';
 import { ChannelIcon, ClipIcon, FlagIcon, SparkIcon } from '../../components/vault/icons';
 import { formatDateTime, formatKb, plural, tzLabel } from '../../components/vault/format';

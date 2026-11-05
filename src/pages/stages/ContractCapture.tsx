@@ -5,7 +5,7 @@ import {
   type Contract, type Metric,
 } from '../../data/contracts';
 import { formatDate } from '../../components/format';
-import Select from '../../components/Select';
+import { Select } from '@jothish-uxd/enterprise-library';
 
 const ROLES: Person['role'][] = ['Solution owner', 'Data scientist', 'Compliance reviewer'];
 const fmtTime = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });

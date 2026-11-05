@@ -1,4 +1,4 @@
-import ResetButton from '../ResetButton';
+import { ResetButton } from '@jothish-uxd/enterprise-library';
 import { isVaultKey, resetStore } from '../../data/store';
 
 /** Reset button in the vault's frame bar. Leaves the lab's changes alone. */

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import BrowserFrame, { useFrameHistory } from '../components/BrowserFrame';
+import { BrowserFrame, useFrameHistory } from '@jothish-uxd/enterprise-library';
 import { CURRENT_USER } from '../data/customers';
 import ResetLab from '../components/ResetLab';
 
@@ -10,6 +10,7 @@ export default function LabLayout() {
   return (
     <BrowserFrame.Stage>
       <BrowserFrame
+        host="cipherlab.app"
         path={pathname}
         nav={nav}
         menu={{ open: menuOpen, onToggle: () => setMenuOpen((o) => !o), controls: 'sidebar' }}

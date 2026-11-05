@@ -9,7 +9,7 @@ import {
   type FeatureId, type FeatureSettings,
 } from '../../data/features';
 import { stageIndex } from '../../data/stages';
-import Select from '../../components/Select';
+import { Select } from '@jothish-uxd/enterprise-library';
 
 const n = (x: number) => x.toLocaleString('en-GB');
 const inputsText = (x: number) => `${n(x)} ${x === 1 ? 'input' : 'inputs'}`;

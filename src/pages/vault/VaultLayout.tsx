@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import VaultSidebar from '../../components/vault/VaultSidebar';
-import BrowserFrame, { useFrameHistory } from '../../components/BrowserFrame';
+import { BrowserFrame, useFrameHistory } from '@jothish-uxd/enterprise-library';
 import { CURRENT_USER } from '../../data/vault/org';
 import ResetVault from '../../components/vault/ResetVault';
 

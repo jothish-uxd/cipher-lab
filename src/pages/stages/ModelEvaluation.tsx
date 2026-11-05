@@ -8,7 +8,7 @@ import { MODELS, pct, resultFor, runProgress, useTraining, valueFor, type ModelK
 import { atThreshold, confusion, meetsContract, resultAt, useEvaluation, workload } from '../../data/evaluation';
 import { stageIndex } from '../../data/stages';
 import HBarChart from '../../components/charts/HBarChart';
-import Select from '../../components/Select';
+import { Select } from '@jothish-uxd/enterprise-library';
 
 const n = (x: number) => x.toLocaleString('en-GB');
 

@@ -108,11 +108,6 @@
 .sort:hover .sort__arrow, .sort.is-active .sort__arrow { opacity: 1; }
 .sort__arrow.is-up { transform: rotate(180deg); }
 
-.hovercard-trigger {
-  appearance: none; display: inline-flex; align-items: center; gap: 2px;
-  padding: 4px; border: 0; border-radius: 6px; background: none; color: var(--ink); cursor: pointer;
-}
-.hovercard-trigger:hover { background: var(--bg-hover); }
 .col-icon .hovercard-trigger .icon { color: inherit; }
 .flag-btn__n { font-family: var(--mono); font-size: 11px; font-weight: 500; }
 .flag-btn.is-cleared { color: var(--ink-faint); }
@@ -125,37 +120,16 @@
 @container (max-width: 720px) { .col-size, .col-att { display: none; } .col-sender { width: 24%; } }
 @container (max-width: 520px) { .col-ai, .col-date { display: none; } .col-sender { width: 34%; } }
 
-/* ---------- Hover card ---------- */
-.hovercard {
-  position: fixed; top: 0; left: 0; z-index: 100; width: max-content; max-width: min(360px, calc(100vw - 16px));
-  padding: 12px 14px; border: 1px solid var(--rule-strong); border-radius: 10px; background: var(--bg); color: var(--ink);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, .28), 0 2px 6px rgba(0, 0, 0, .06);
-  font-family: var(--font); font-size: 13px; line-height: 1.5; text-align: left; white-space: normal;
-}
-.hovercard[hidden] { display: none; }
-.hovercard::before {
-  content: ""; position: absolute; top: -6px; left: calc(var(--arrow-x, 50%) - 5px); width: 10px; height: 10px;
-  background: var(--bg); border-left: 1px solid var(--rule-strong); border-top: 1px solid var(--rule-strong); transform: rotate(45deg);
-}
-.hovercard.is-above::before { top: auto; bottom: -6px; transform: rotate(225deg); }
-.card-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-.card-title--rule { font-weight: 400; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
-.card-title--rule strong { font-weight: 600; }
+/* ---------- Hover card content (the card itself comes from the library) ---------- */
 .card-list { display: grid; gap: 12px; }
 .card-chip {
   display: inline-block; margin-bottom: 4px; padding: 1px 7px; border: 1px solid var(--rule); border-radius: 6px;
   background: var(--bg-subtle); font-family: var(--mono); font-size: 12px;
 }
-.card-dl { display: grid; gap: 2px; }
-.card-dl > div { display: flex; gap: 6px; }
-.card-dl dt { font-weight: 600; white-space: nowrap; }
-.card-dl dt::after { content: ":"; }
-.card-dl dd { margin: 0; color: var(--ink-soft); }
 .card-strong { font-weight: 600; }
 .card-sub { display: grid; gap: 2px; margin-top: 4px; }
 .card-sub li { display: flex; justify-content: space-between; gap: 16px; color: var(--ink-soft); }
 .card-status { font-family: var(--mono); font-size: 12px; color: var(--ink); }
-.card-note { margin-top: 4px; font-size: 12.5px; color: var(--ink-faint); }
 .card-people { display: grid; gap: 2px; margin-top: 8px; font-size: 12.5px; color: var(--ink-soft); }
 
 /* ---------- Reading pane ---------- */
